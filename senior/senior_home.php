@@ -7,7 +7,7 @@
     <link rel="stylesheet" href ="../style.css?v=<?php echo time(); ?>">
     
   </head>
-  <body>
+  <body class="background">
     <div class="topnav" id="myTopnav">
       <div class="dropdown-bruh">
         <div>
@@ -18,16 +18,4 @@
       <a href="javascript:void(0);" class="icon" onclick="myFunction()">&#9776;</a>
     </div> 
   </body>
-
-  <script>
-    /* Toggle between adding and removing the "responsive" class to topnav when the user clicks on the icon */
-function myFunction() {
-  var x = document.getElementById("myTopnav");
-  if (x.className === "topnav") {
-    x.className += " responsive";
-  } else {
-    x.className = "topnav";
-  }
-} 
-  </script>
 </html>
