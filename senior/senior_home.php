@@ -15,7 +15,44 @@
   <div class="main-div">
 
     <div class="left-div">
-      <h1>This is the left div</h1>
+      <button class="left-button" style="border-top-left-radius: 15px; border-top-right-radius: 15px;"><img src="id_pics/2x2 pic.jpg" alt="" class="profile-pic">
+        <p>Profile</p>
+      </button>
+
+      <button class="left-button">
+        <span class="material-symbols-outlined">
+          person
+        </span>
+        <p>Users</p>
+      </button>
+
+      <button class="left-button">
+        <span class="material-symbols-outlined">
+          elderly
+        </span>
+        <p>Seniors</p>
+      </button>
+
+      <button class="left-button">
+        <span class="material-symbols-outlined">
+          description
+        </span>
+        <p>Requests</p>
+      </button>
+
+      <button class="left-button">
+        <span class="material-symbols-outlined">
+          qr_code
+        </span>
+        <p>Scan QR code</p>
+      </button>
+
+      <button class="logout-button">
+        <span class="material-symbols-outlined">
+          logout
+        </span>
+        <p>Logout</p>
+      </button>
     </div>
     
     <div class="mid-div">
