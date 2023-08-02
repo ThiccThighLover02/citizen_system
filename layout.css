@@ -1,0 +1,45 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background-image: linear-gradient(to right top, #3cd36e, #5fda85, #7ce19b, #96e7b0, #b0edc4);
+    background-size: cover;
+    overflow: hidden;
+    
+}
+
+.left-div {
+    background-color: #ebeeff;
+    height: 80vh;
+    width: 25vw;
+}
+
+.main-div {
+    display: flex;
+    gap: 2rem;
+    height: 100vh;
+    margin-top: 2%;
+    padding-left: 20px;
+    padding-right: 20px;
+    width: 100vw;
+    
+}
+
+.mid-div {
+    background-color: #ebeeff;
+    height: 85vh;
+    width: 50vw;
+}
+
+.right-div {
+    height: 80vh;
+    width: 25vw;
+}
+
+.top-nav {
+    background-color: white;
+    height: 8vh;
+    width: 100vw;
+}

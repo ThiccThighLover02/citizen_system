@@ -4,18 +4,34 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Senior Login Page</title>
-    <link rel="stylesheet" href ="../style.css?v=<?php echo time(); ?>">
+    <link rel="stylesheet" href ="../layout.css?v=<?php echo time(); ?>">
     
   </head>
   <body class="background">
-    <div class="topnav" id="myTopnav">
-      <div class="dropdown-bruh">
-        <div>
-            <a href="../logout.php">Logout</a>
-        </div>
-      </div>
-      <a href="#about">About</a>
-      <a href="javascript:void(0);" class="icon" onclick="myFunction()">&#9776;</a>
-    </div> 
+  <div class="top-nav">
+    <h1>Senior Citizen System</h1>
+  </div>
+
+  <div class="main-div">
+
+    <div class="left-div">
+      <h1>This is the left div</h1>
+    </div>
+    
+    <div class="mid-div">
+
+      <h1>this is the mid div</h1>
+
+    </div>
+
+    <div class="right-div">
+
+      <h1>this is the right div</h1>
+
+    </div>
+
+  </div>
+  
+
   </body>
 </html>
