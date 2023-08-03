@@ -44,7 +44,7 @@
         <span class="material-symbols-outlined">
           qr_code
         </span>
-        <p>Scan QR code</p>
+        <p>Scan QR code</p> teheeeee
       </button>
 
       <button class="logout-button">
