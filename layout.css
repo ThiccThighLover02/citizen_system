@@ -1,0 +1,131 @@
+/*imports go here */
+@import url('https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200');
+
+:root {
+    --primary-green: #3cd36e;
+    --secondary-green: #b0edc4;
+    --accent-green: #27aa53;
+    --text-green: #082110;
+    --background-green: #def7e6;
+}
+
+
+* {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background-image: linear-gradient(to right top, #3cd36e, #5fda85, #7ce19b, #96e7b0, #b0edc4);
+    background-size: cover;
+    overflow: hidden;
+    
+}
+
+.left-button {
+    border: none;
+    background: transparent;
+    border-radius: 15px;
+    font-family: sans-serif;
+    font-size: 20px;
+    padding: 15px;
+    width: 100%;
+    
+}
+
+.left-button:hover {
+    background-color: var(--secondary-green);
+    transition: ease-in 0.3s;
+}
+
+.left-button p {
+    display: flex;
+    margin-top: 15px;
+}
+
+
+.left-div {
+    background-color: var(--background-green);
+    border-radius: 15px;
+    box-shadow: rgba(255, 255, 255, 0.1) 0px 1px 1px 0px inset, rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px;
+    height: 85vh;
+    width: 25vw;
+}
+
+.logout-button {
+    border: none;
+    background: transparent;
+    border-radius: 15px;
+    bottom: 0px;
+    font-family: sans-serif;
+    font-size: 20px;
+    padding: 15px;
+    width: 100%;
+}
+
+.logout-button:hover {
+    background-color: var(--secondary-green);
+    color: rgb(252, 63, 63);
+    transition: ease-in 0.3s;  
+}
+
+.logout-button:hover .material-symbols-outlined {
+    background-color: var(--secondary-green);
+    color: rgb(252, 63, 63);
+    transition: ease-in 0.3s;
+}
+
+.logout-button p {
+    display: flex;
+    margin-top: 15px;
+}
+
+.main-div {
+    display: flex;
+    gap: 4rem;
+    height: 100vh;
+    margin-top: 2%;
+    padding-left: 20px;
+    padding-right: 20px;
+    width: 100vw;
+    
+}
+
+.material-symbols-outlined {
+    color: var(--accent-green);
+    font-variation-settings:
+    'FILL' 0,
+    'wght' 250,
+    'GRAD' 0,
+    'opsz' 48;
+    float: left;
+    font-size: 50px;
+    margin-right: 20px;
+  }
+
+.mid-div {
+    background-color: var(--background-green);
+    border-radius: 15px;
+    box-shadow: rgba(255, 255, 255, 0.1) 0px 1px 1px 0px inset, rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px;
+    height: 85vh;
+    width: 50vw;
+}
+
+.profile-pic {
+    border-radius: 25px;
+    float: left;
+    height: 50px;
+    margin-right: 20px;
+    width: 50px;
+}
+
+.right-div {
+    height: 80vh;
+    width: 25vw;
+}
+
+.top-nav {
+    background-color: white;
+    height: 8vh;
+    width: 100vw;
+}
