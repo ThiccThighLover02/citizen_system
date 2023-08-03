@@ -3,7 +3,8 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Senior Login Page</title>
+    <title>Senior Home Page</title>
+    <script src="senior_script.js"></script>
     <link rel="stylesheet" href ="../layout.css?v=<?php echo time(); ?>">
     
   </head>
@@ -47,7 +48,7 @@
         <p>Scan QR code</p>
       </button>
 
-      <button class="logout-button">
+      <button class="logout-button" onclick="logout_function()">
         <span class="material-symbols-outlined">
           logout
         </span>

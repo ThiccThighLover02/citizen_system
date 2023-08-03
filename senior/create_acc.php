@@ -1,10 +1,14 @@
+<?php
+  include("../db_connect.php");
+?>
+
 <!doctype html>
 <html lang="en">
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Senior Login Page</title>
-    <link rel="stylesheet" href="create.css">
+    <link rel="stylesheet" href ="create.css?v=<?php echo time(); ?>">
     
   </head>
   <body class="bruh">
@@ -25,11 +29,11 @@
         <div>
             <label for="" class="label">Full Name:</label>
             <input type="text" class="input-fields" name="first_name" placeholder="First Name" required>
-            <input type="text" class="input-fields" name="middle_name" placeholder="Middle Name"> 
+            <input type="text" class="input-fields" name="middle_name" placeholder="Middle Name(Leave blank if none)"> 
             <input type="text" class="input-fields" name="last_name" placeholder="Last Name" required> 
             <select name="extension" id="" class="input-fields">
               <option value="Extension" hidden>Extension</option>
-              <option value="None">None</option>
+              <option value="">None</option>
               <option value="I">I</option>
               <option value="II">II</option>
               <option value="III">II</option>
@@ -74,7 +78,7 @@
         <div>
             <label for="" class="label-email">Permanent Address:</label>
             <select name="" id="" class="input-fields">
-              <option value=""></option>
+              <option value="" hidden>Purok</option>
             </select>
         </div>
 
