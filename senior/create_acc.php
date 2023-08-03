@@ -89,7 +89,7 @@
 
         <div>
           <label for="" class="label-email">Birth Certificate:</label>
-          <input type="file" class="input-fields-picture" name="birth_certificate">
+          <input type="file" class="input-fields-picture" name="birth_certificate">bruh
         </div>
         
 
