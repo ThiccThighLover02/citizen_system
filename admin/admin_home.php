@@ -21,6 +21,13 @@
 
       <button class="left-button">
         <span class="material-symbols-outlined">
+          home
+        </span>
+        <p>Home</p>
+      </button>
+
+      <button class="left-button">
+        <span class="material-symbols-outlined">
           person
         </span>
         <p>Users</p>
@@ -57,7 +64,30 @@
     
     <div class="mid-div">
 
-      <h1>this is the mid div</h1>
+      <table class="senior-table">
+        <thead class="table-head">
+          <tr>
+            <th>first name</th>
+            <th>first name</th>
+            <th>first name</th>
+            <th>first name</th>
+            <th>first name</th>
+            <th>first name</th>
+            <th>first name</th>
+          </tr>
+        </thead>
+        <tbody class="table-body">
+          <tr>
+            <td>Carlson</td>
+            <td>Carlson</td>
+            <td>Carlson</td>
+            <td>Carlson</td>
+            <td>Carlson</td>
+            <td>Carlson</td>
+            <td>Carlson</td>
+          </tr>
+        </tbody>
+      </table>
 
     </div>
 
