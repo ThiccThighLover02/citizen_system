@@ -20,7 +20,7 @@
         <p>Profile</p>
       </button>
 
-      <button class="left-button" id="Active" onclick="home_function()">
+      <button class="left-button" onclick="home_function()">
         <span class="material-symbols-outlined">
           home
         </span>
@@ -41,7 +41,7 @@
         <p>Seniors</p>
       </button>
 
-      <button class="left-button" onclick="view_requests()">
+      <button class="left-button" id="Active" onclick="view_requests()">
         <span class="material-symbols-outlined">
           description
         </span>

@@ -15,6 +15,10 @@
     padding: 0;
 }
 
+#Active {
+    background-color: var(--secondary-green);
+}
+
 body {
     background-image: linear-gradient(to right top, #3cd36e, #5fda85, #7ce19b, #96e7b0, #b0edc4);
     background-size: cover;
@@ -48,9 +52,8 @@ body {
     background-color: var(--background-green);
     border-radius: 15px;
     box-shadow: rgba(255, 255, 255, 0.1) 0px 1px 1px 0px inset, rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px;
-    height: 83vh;
-    padding-left: 15px;
-    padding-top: 15px;
+    height: 80vh;
+    padding: 15px;
     width: 25vw;
 }
 
@@ -84,7 +87,7 @@ body {
 
 .main-div {
     display: flex;
-    gap: 4rem;
+    gap: 2rem;
     height: 100vh;
     margin-top: 2%;
     padding-left: 20px;
@@ -105,13 +108,28 @@ body {
     margin-right: 20px;
   }
 
+
+
 .mid-div {
     background-color: var(--background-green);
     border-radius: 15px;
     box-shadow: rgba(255, 255, 255, 0.1) 0px 1px 1px 0px inset, rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px;
     height: 85vh;
-    overflow: auto;
+    overflow: overlay;
     width: 50vw;
+}
+
+.mid-div::-webkit-scrollbar-track {
+    background-color: transparent;
+}
+
+.mid-div::-webkit-scrollbar {
+    width: 6px;
+    background-color: transparent;
+}
+
+.mid-div::-webkit-scrollbar-thumb {
+    background-color: transparent;
 }
 
 .profile-pic {
@@ -122,10 +140,37 @@ body {
     width: 50px;
 }
 
+
+
 .right-div {
-    height: 80vh;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    height: 45vh;   
     width: 25vw;
 }
+
+.right-div-buttons {
+    align-items: center;
+    background-color: var(--background-green);
+    border: 1px solid var(--secondary-green);
+    border-radius: 15px;
+    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+    display: flex;
+    flex-direction: column;
+    height: 20vh;
+    justify-content: center;
+    width: 20vh;
+}
+
+.right-div-buttons p {
+    font-family: sans-serif;
+    font-size: 16px;
+}
+
+.right-div-buttons span {
+    font-size: 75px;
+}
+
 
 .senior-table {
     border-collapse: collapse;
@@ -155,10 +200,11 @@ body {
 
 .senior-table th, td{
     font-family: sans-serif;
-    min-width: 20px;
-    min-height: 20px;
+    min-width: 50px;
+    max-height: 20px;
     font-size: 16px;
     padding: 15px 12px 15px;
+    text-align: center;
 }
 
 .table-body tr {
@@ -170,4 +216,22 @@ body {
     background-color: white;
     height: 8vh;
     width: 100vw;
+}
+
+.view-button {
+    background-color: var(--accent-green);
+    border: none;
+    border-radius: 5px;
+    box-shadow: rgba(255, 255, 255, 0.1) 0px 1px 1px 0px inset, rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px;
+    color: var(--background-green);
+    font-family: sans-serif;
+    font-size: 20px;
+    height: 35px;
+    max-width: 190px;
+    padding: 5px;
+}
+
+.view-button:hover {
+    background: var(--primary-green);
+    color: var(--secondary-green);
 }

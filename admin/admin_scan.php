@@ -20,7 +20,7 @@
         <p>Profile</p>
       </button>
 
-      <button class="left-button" id="Active" onclick="home_function()">
+      <button class="left-button" onclick="home_function()">
         <span class="material-symbols-outlined">
           home
         </span>
@@ -48,7 +48,7 @@
         <p>Requests</p>
       </button>
 
-      <button class="left-button" onclick="scan_function()">
+      <button class="left-button" id="Active" onclick="scan_function()">
         <span class="material-symbols-outlined">
           qr_code
         </span>
