@@ -11,7 +11,7 @@ function view_senior(){
 }
 
 function view_requests(){
-    window.location.href="admin_view_requests.php";
+    window.location.href="admin_requests.php";
 }
 
 function scan_function(){

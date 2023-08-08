@@ -27,9 +27,11 @@ body {
 }
 
 .left-button {
+    align-items: center;
     border: none;
     background: transparent;
     border-radius: 15px;
+    display: flex;
     font-family: sans-serif;
     font-size: 20px;
     height: 10vh;
@@ -43,7 +45,6 @@ body {
 }
 
 .left-button p {
-    display: flex;
     margin-top: 15px;
 }
 
@@ -85,13 +86,26 @@ body {
     margin-top: 15px;
 }
 
+.in-mid {
+    align-items: baseline;
+    display: flex;
+    height: 10vh;
+    justify-content: space-around;
+    width: 100%;
+    border-bottom: 2px solid var(--secondary-green);
+}
+
+.in-mid h3{
+    font-family: sans-serif;
+    font-size: 18px;
+}
+
 .main-div {
     display: flex;
     gap: 2rem;
     height: 100vh;
     margin-top: 2%;
-    padding-left: 20px;
-    padding-right: 20px;
+    padding: 0px 20px 20px 20px;
     width: 100vw;
     
 }
@@ -119,6 +133,19 @@ body {
     width: 50vw;
 }
 
+.mid-div-only {
+    align-items: center;
+    background-color: var(--background-green);
+    border-radius: 15px;
+    box-shadow: rgba(255, 255, 255, 0.1) 0px 1px 1px 0px inset, rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px;
+    display: flex;
+    flex-direction: column;
+    height: 81.5vh;
+    overflow: overlay;
+    padding-top: 20px;
+    width: 67vw; 
+}
+
 .mid-div::-webkit-scrollbar-track {
     background-color: transparent;
 }
@@ -132,12 +159,113 @@ body {
     background-color: transparent;
 }
 
+/* this is for the modal */
+
+ /* Modal Header */
+ .modal-header {
+    padding: 2px 16px;
+    background-color: #5cb85c;
+    color: white;
+  }
+  
+  /* Modal Body */
+  .modal-body {padding: 2px 16px;}
+  
+  /* Modal Footer */
+  .modal-footer {
+    padding: 2px 16px;
+    background-color: #5cb85c;
+    color: white;
+  }
+  
+  /* Add Animation */
+  @keyframes animatetop {
+    from {top: -300px; opacity: 0}
+    to {top: 0; opacity: 1}
+  } 
+  
+ /* The Modal (background) */
+ .modal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+  }
+
+ /* Modal Body */
+ .modal-body {
+    padding: 2px 16px;
+    overflow-x: hidden;
+  }
+  
+  
+  /* Modal Content */
+  .modal-content {
+    position: relative;
+    background-color: #fefefe;
+    overflow: auto;
+    margin: auto;
+    border: 1px solid #888;
+    top: 100px;
+    width: 80%;
+    height: 80%;
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);
+    animation-name: animatetop;
+    animation-duration: 0.4s
+  }
+    
+    .close {
+      color: #f0edff;
+      float: right;
+      font-size: 40px;
+      font-weight: bold;
+      transform: translate(0px, -10px);
+    }
+    
+    .close:hover,
+    .close:focus {
+      color: #00c893;
+      text-decoration: none;
+      cursor: pointer;
+    }
+
 .profile-pic {
     border-radius: 25px;
     float: left;
     height: 50px;
     margin-right: 20px;
     width: 50px;
+}
+
+.request-details {
+    display: grid;
+    gap: 1rem;
+    grid-template-columns: auto auto;
+    padding: 15px;
+    width: 90%;
+}
+
+.request-details h3 {
+    color: var(--accent-green);
+    font-family: sans-serif;
+    font-size: 25px;
+}
+
+.request-img {
+    border-radius: 15px;
+    height: 30vh;
+    width: 30vh;
+}
+
+.request-info {
+    font-family: sans-serif;
+    font-size: 20px;
 }
 
 
@@ -232,6 +360,24 @@ body {
 }
 
 .view-button:hover {
+    background: var(--primary-green);
+    color: var(--secondary-green);
+}
+
+.view-button-certificate {
+    background-color: var(--accent-green);
+    border: none;
+    border-radius: 5px;
+    box-shadow: rgba(255, 255, 255, 0.1) 0px 1px 1px 0px inset, rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px;
+    color: var(--background-green);
+    font-family: sans-serif;
+    font-size: 20px;
+    height: 35px;
+    max-width: 100%;
+    padding: 5px;
+}
+
+.view-button-certificate:hover{
     background: var(--primary-green);
     color: var(--secondary-green);
 }

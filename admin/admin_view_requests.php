@@ -1,3 +1,11 @@
+<?php
+  include "../db_connect.php";
+
+  #get the request id from the url
+  $request_id = $_GET['request_id'];
+
+?>
+
 <!doctype html>
 <html lang="en">
   <head>
@@ -63,15 +71,79 @@
       </button>
     </div>
     
-    <div class="mid-div">
+    <?php
 
-      <h1>this is the mid div</h1>
+        #create a prepared statement to get the request details using the id
+        $stmt = $conn->prepare("SELECT * FROM request_tbl R WHERE request_id=?");
+        $stmt->bind_param("i", $request_id);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        $row = mysqli_fetch_array($result);
 
-    </div>
+    ?>
 
-    <div class="right-div">
+    <div class="mid-div-only">
+        <img src="../user/id_pics/<?php echo $row['id_pic'] ?>" alt="" class="request-img">
 
-      <h1>this is the right div</h1>
+        <div class="request-details">
+            <div>
+            <h3 class="detail-head">Name: </h3>
+            <p class="request-info"><?php echo $row['first_name'] . " " . $row['middle_name'] . " " . $row['last_name'] . " " . $row['extension']; ?></p>
+            </div>
+            <div>
+            <h3 class="detail-head">Address: </h3>
+            <p class="request-info"><?php echo $row['purok'] . ", " . $row['barangay'] . ", " . $row['municipality'] . ", " . $row['province']; ?></p>
+            </div>
+            <div>
+            <h3 class="detail-head">Birthdate: </h3>
+            <p class="request-info"><?php echo $row['birth_date']?></p>
+            </div>
+            <div>
+            <h3 class="detail-head">Age: </h3>
+            <p class="request-info"><?php echo $row['age']?></p>
+            </div>
+            <div>
+            <h3 class="detail-head">Citizenship: </h3>
+            <p class="request-info"><?php echo $row['citizenship']?></p>
+            </div>
+            <div>
+            <h3 class="detail-head">Civil Status: </h3>
+            <p class="request-info"><?php echo $row['civil_status']?></p>
+            </div>
+            <div>
+            <h3 class="detail-head">Sex: </h3>
+            <p class="request-info"><?php echo $row['sex']?></p>
+            </div>
+            <div>
+            <h3 class="detail-head">Contact No: </h3>
+            <p class="request-info"><?php echo str_pad($row['cell_no'], 13, '+63', STR_PAD_LEFT);?></p>
+            </div>
+
+            <div>
+            <button id="myBtn">Open Modal</button>
+            </div>
+            
+            <!-- this is the modal for the birth certificate -->
+            <div id="myModal" class="modal">
+
+            <!-- Modal content -->
+            <div class="modal-content">
+              <div class="modal-header">
+                <span class="close">&times;</span>
+                <h2>Modal Header</h2>
+              </div>
+              <div class="modal-body">
+                <p>Some text in the Modal Body</p>
+                <p>Some other text...</p>
+              </div>
+              <div class="modal-footer">
+                <h3>Modal Footer</h3>
+              </div>
+            </div> 
+
+            </div>
+        </div>
+      
 
     </div>
 
@@ -79,4 +151,33 @@
   
 
   </body>
+
+  <script>
+    // Get the modal
+var modal = document.getElementById("myModal");
+
+// Get the button that opens the modal
+var btn = document.getElementById("myBtn");
+
+// Get the <span> element that closes the modal
+var span = document.getElementsByClassName("close")[0];
+
+// When the user clicks on the button, open the modal
+btn.onclick = function() {
+  modal.style.display = "block";
+}
+
+// When the user clicks on <span> (x), close the modal
+span.onclick = function() {
+  modal.style.display = "none";
+}
+
+// When the user clicks anywhere outside of the modal, close it
+window.onclick = function(event) {
+  if (event.target == modal) {
+    modal.style.display = "none";
+  }
+} 
+  </script>
+
 </html>

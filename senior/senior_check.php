@@ -44,11 +44,11 @@ if (isset($_POST['email']) && isset($_POST['password'])){
         $log_time = date("H:i:s");
         $session_no = random_int(100000, 999999);
 
-        /*
+        
         $stmt = $conn->prepare("INSERT INTO `senior_log` (`login_name`, `login_date`, `login_time`, `senior_id`, `session_no`) VALUES (?, ?, ?, ?, ?)");
         $stmt->bind_param("sssii", $full_name, $log_date, $log_time, $senior_id, $session_no);
         $stmt->execute();
-        */
+        
 
         if ($row['senior_email'] === $email && $row['senior_password'] === $pass) { //if the username and password is correct this code will run
 
@@ -57,6 +57,8 @@ if (isset($_POST['email']) && isset($_POST['password'])){
             $_SESSION['senior_email'] = $row['senior_email']; //create a username session
 
             $_SESSION['senior_id'] = $row['senior_id'];   //create a id session
+
+            $_SESSION['session_no'] = $session_no;
 
             #a prepared statement to update the status of the senior citizen to "Active"
             $active = "Active"; #we declared this variable because apparently we need a reference for a prepared statement -_-

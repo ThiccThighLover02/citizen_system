@@ -3,13 +3,13 @@
 
 session_start();
 include 'db_connect.php';
-
+date_default_timezone_set("Asia/Manila");
 #if the senior wants to log out
 if(isset($_SESSION['senior_status'])) {
     $senior_id = $_SESSION['senior_id'];
-    #$session_no = $_SESSION['session_no'];
+    $session_no = $_SESSION['session_no'];
 
-    $out_date = date("d/m/Y");
+    $out_date = date("Y-d-m");
     $out_time = date("H:i:s");
     $status = "Inactive";
 
