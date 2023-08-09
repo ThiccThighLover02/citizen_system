@@ -21,3 +21,8 @@ function scan_function(){
 function logout_function(){
     window.location.href="logout.php";
 }
+
+
+function reject_function() {
+    window.location.href="../reject_senior.php";
+}

@@ -74,7 +74,9 @@
     <?php
 
         #create a prepared statement to get the request details using the id
-        $stmt = $conn->prepare("SELECT * FROM request_tbl R WHERE request_id=?");
+        $stmt = $conn->prepare("SELECT * FROM request_tbl R RIGHT JOIN purok_tbl P ON R.purok_id = P.purok_id
+        RIGHT JOIN barangay_tbl B ON R.barangay_id = B.barangay_id RIGHT JOIN municipality_tbl M ON R.municipality_id = M.municipality_id
+        RIGHT JOIN  province_tbl PR ON R.province_id = PR.province_id WHERE request_id=?");
         $stmt->bind_param("i", $request_id);
         $stmt->execute();
         $result = $stmt->get_result();
@@ -82,7 +84,7 @@
 
     ?>
 
-    <div class="mid-div-only">
+    <div class="mid-div-requests">
         <img src="../user/id_pics/<?php echo $row['id_pic'] ?>" alt="" class="request-img">
 
         <div class="request-details">
@@ -92,7 +94,7 @@
             </div>
             <div>
             <h3 class="detail-head">Address: </h3>
-            <p class="request-info"><?php echo $row['purok'] . ", " . $row['barangay'] . ", " . $row['municipality'] . ", " . $row['province']; ?></p>
+            <p class="request-info"><?php echo $row['purok_no'] . ", " . $row['barangay_name'] . ", " . $row['municipality_name'] . ", " . $row['province_name']; ?></p>
             </div>
             <div>
             <h3 class="detail-head">Birthdate: </h3>
@@ -118,10 +120,6 @@
             <h3 class="detail-head">Contact No: </h3>
             <p class="request-info"><?php echo str_pad($row['cell_no'], 13, '+63', STR_PAD_LEFT);?></p>
             </div>
-
-            <div>
-            <button id="myBtn">Open Modal</button>
-            </div>
             
             <!-- this is the modal for the birth certificate -->
             <div id="myModal" class="modal">
@@ -130,14 +128,10 @@
             <div class="modal-content">
               <div class="modal-header">
                 <span class="close">&times;</span>
-                <h2>Modal Header</h2>
+                <h2>Birth Certificate</h2>
               </div>
               <div class="modal-body">
-                <p>Some text in the Modal Body</p>
-                <p>Some other text...</p>
-              </div>
-              <div class="modal-footer">
-                <h3>Modal Footer</h3>
+                <img src="../user/birth_certificate/Lester_The_Catid_pic_04-25-08-03.jpg" alt="">
               </div>
             </div> 
 
@@ -145,6 +139,29 @@
         </div>
       
 
+    </div>
+
+    <div class="right-div">
+      <div class="attachment" id="myBtn">
+        <div class="attach-prev">
+          <img src="../user/birth_certificate/Lester_The_Catid_pic_04-25-08-03.jpg" alt="" class="attach-image">
+        </div>
+        <div class="attach-foot">
+          Preview Images
+        </div>
+      </div>
+      <div>
+      <a href="../add_senior.php?request_id=<?= $row['request_id']?>">
+        <button class="right-div-buttons-req" id="accept" onclick="accept_function()">
+          <p class="right-p">Accept Request</p>
+        </button>
+      </a>
+      </div>
+      <div>
+      <button class="right-div-buttons-req" id="reject" onclick="reject_function()">
+        <p class="right-p">Decline Request</p>
+      </button>
+      </div>
     </div>
 
   </div>
@@ -178,6 +195,10 @@ window.onclick = function(event) {
     modal.style.display = "none";
   }
 } 
+
+function add_function(){
+  window.location.href="../add_senior.php?request_id=<?= $row['request_id'] ?>"
+}
   </script>
 
 </html>

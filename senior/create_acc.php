@@ -88,7 +88,7 @@
                 while ($row = mysqli_fetch_array($sql)){
 
               ?>
-              <option value="<?php echo $row['purok_no']?>"><?php echo $row['purok_no']?></option>
+              <option value="<?php echo $row['purok_id']?>"><?php echo $row['purok_no']?></option>
               <?php
                 }
               ?>
@@ -100,18 +100,18 @@
                   $sql = mysqli_query($conn, "SELECT * FROM barangay_tbl");
                   while($row = mysqli_fetch_array($sql)) {
                 ?>
-                <option value="<?php echo $row['barangay_name'] ?>"><?php echo $row['barangay_name'] ?></option>
+                <option value="<?php echo $row['barangay_id'] ?>"><?php echo $row['barangay_name'] ?></option>
                 <?php
                   }
                 ?>
             </select>
 
             <select name="municipality" id="" class="input-fields" readonly>
-              <option value="San Isidro" hidden>San Isidro</option>
+              <option value="1" hidden>San Isidro</option>
             </select>
             
             <select name="province" id="" class="input-fields" readonly>
-              <option value="Nueva Ecija" hidden>Nueva Ecija</option>
+              <option value="1" hidden>Nueva Ecija</option>
             </select>
         </div>
 

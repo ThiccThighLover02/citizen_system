@@ -105,7 +105,7 @@
           
           ?>
           <tr>
-            <td><a href="view_senioracc.php?email=<?php echo $row['senior_email']; ?>&name=<?php echo $row['full_name'] ?>"><input type="button" value="View details" class="view-button"></a></td>
+            <td><a href="admin_senior_acc.php?email=<?= $row['senior_email'] ?>"><input type="button" value="View details" class="view-button"></a></td>
             <td><?=str_pad($row['senior_id'], 6, '0', STR_PAD_LEFT); ?></td>
             <td><?= $row['status'] ?></td>
             <td><?= $row['full_name'] ?></td>
