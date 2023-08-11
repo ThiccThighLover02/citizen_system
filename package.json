@@ -1,0 +1,15 @@
+{
+  "name": "senior_system",
+  "version": "1.0.0",
+  "description": "\"# senior_system\"  initgit add README.mdgit commit -m \"first commit\"git branch -M maingit remote add origin https://github.com/ThiccThighLover02/senior_system.gitgit push -u origin main",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "html5-qrcode": "^2.3.8"
+  }
+}

@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Senior Home Page</title>
     <script src="admin_script.js"></script>
+    <script src="../node_modules//html5-qrcode/html5-qrcode.min.js"></script> <!-- call the script that we will use to scan the qr code -->
     <link rel="stylesheet" href ="../layout.css?v=<?php echo time(); ?>">
     
   </head>
@@ -63,20 +64,39 @@
       </button>
     </div>
     
-    <div class="mid-div">
+    <div class="mid-div-only" id="mid-scan-div">
 
-      <h1>this is the mid div</h1>
-
-    </div>
-
-    <div class="right-div">
-
-      <h1>this is the right div</h1>
+      <div id="reader"></div>
+      <div id="result"></div>
 
     </div>
-
-  </div>
   
 
   </body>
+
+  <script>
+
+
+    const scanner = new Html5QrcodeScanner('reader', {
+    qrbox: {
+      width:500,
+      height: 100,
+    },
+    fps:20, 
+    });
+
+    scanner.render(success, error);
+
+    function success(result) {
+        scanner.clear();
+        var scan_result = result;
+        console.log(scan_result);
+        window.location.href="view_senioracc.php?" + result;
+    }
+
+
+    function error(err){
+      console.error(err);
+    }
+  </script>
 </html>

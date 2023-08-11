@@ -26,3 +26,7 @@ function logout_function(){
 function reject_function() {
     window.location.href="../reject_senior.php";
 }
+
+function add_empFunction() {
+    window.location.href="create_emp.php";
+}

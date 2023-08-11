@@ -19,8 +19,6 @@
 
   date_default_timezone_set("Asia/Manila");
 
-   $random = random_int(1000, 9999);
-
    $first_name = $row['first_name'];
    $middle_name = $row['middle_name'];
    $last_name = $row['last_name'];
@@ -38,7 +36,7 @@
    $municipality = $row['municipality_id'];
    $province = $row['province_id'];
    $email = $row['senior_email'];
-   $password = date("Y") . "-" . uniqid();
+   $password = date("Y") . "-" . random_int(1000, 9999);
    $date_created = date("Y-m-d");
    $time_created = date("H:i:s");
    $status = "Inactive";
@@ -48,7 +46,7 @@
     include('phpqrcode/qrlib.php');
     $tempDir = 'senior/senior_pics/qr_codes/';
 
-    $codeContents = uniqid();
+    $codeContents = uniqid("senior", true);
 
     // we need to generate filename somehow, 
     // with md5 or with database ID used to obtains $codeContents...
@@ -91,13 +89,13 @@ else {
 
 
 
-$stmt = $conn->prepare("INSERT INTO `senior_system`.`senior_tbl` (`status`, `full_name`, `first_name`, `mid_name`, `last_name`, `extension`, `date_birth`, `birth_place`, `sex`, `civil_status`, `citizenship`, `cell_no`, `purok_id`, `barangay_id`, `municipality_id`, `province_id`, `senior_email`, `senior_password`, `qr_image`, `id_pic`, `birth_certificate`, `account_time`, `account_date`) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);"); 
-$stmt->bind_param("sssssssssssiiiiisssssss", $status, $full_name, $first_name, $middle_name, $last_name, $extension, $birth_date, $birth_place, $sex, $civil_status, $citizenship, $cell_no, $purok, $barangay, $municipality, $province, $email, $password, $fileName, $row['id_pic'], $row['birth_certificate'], $time_created, $date_created);
+$stmt = $conn->prepare("INSERT INTO `senior_system`.`senior_tbl` (`status`, `full_name`, `first_name`, `mid_name`, `last_name`, `extension`, `date_birth`, `birth_place`, `sex`, `civil_status`, `citizenship`, `cell_no`, `purok_id`, `barangay_id`, `municipality_id`, `province_id`, `senior_email`, `senior_password`, `qr_image`, `id_pic`, `birth_certificate`, `account_time`, `account_date`, `qr_contents`) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);"); 
+$stmt->bind_param("sssssssssssiiiiissssssss", $status, $full_name, $first_name, $middle_name, $last_name, $extension, $birth_date, $birth_place, $sex, $civil_status, $citizenship, $cell_no, $purok, $barangay, $municipality, $province, $email, $password, $fileName, $row['id_pic'], $row['birth_certificate'], $time_created, $date_created, $codeContents);
 $stmt->execute();
 
-$stmt = $conn->prepare("DELETE FROM request_tbl WHERE request_id=?");
-$stmt->bind_param("i", $_GET['request_id']);
-$stmt->execute();
+$remove = $conn->prepare("DELETE FROM request_tbl WHERE request_id=?");
+$remove->bind_param("i", $_GET['request_id']);
+$remove->execute();
 
 
 

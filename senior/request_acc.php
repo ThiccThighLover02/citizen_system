@@ -49,7 +49,7 @@
         if(in_array($img_ex_lc, $allowed_exs)) {
           date_default_timezone_set("Asia/Manila");
           $new_birth_name =$firstN . "_" . $midN . "_" . $lastN . "birth_cert" . "." . $img_ex_lc;
-          $img_upload_path = '../user/birth_certificate/' . $new_birth_name;
+          $img_upload_path = '../user/requests/birth_certificate/' . $new_birth_name;
           move_uploaded_file($birth_temp_name, $img_upload_path);
             
             
@@ -82,7 +82,7 @@
         if(in_array($img_ex_lc, $allowed_exs)) {
           date_default_timezone_set("Asia/Manila");
           $new_id_name =$firstN . "_" . $midN . "_" . $lastN . "id_pic" . "." . $img_ex_lc;
-          $img_upload_path = '../user/id_pics/' . $new_id_name;
+          $img_upload_path = '../user/requests/id_pics/' . $new_id_name;
           move_uploaded_file($id_tmp_name, $img_upload_path);
             
             
@@ -115,7 +115,7 @@
 
     else {
     
-      $stmt_request = $conn->prepare("INSERT INTO  request_tbl(`first_name`, `middle_name`, `last_name`, `extension`, `birth_date`, `place_birth`, `sex`, `civil_status`, `citizenship`, `purok`, `barangay`, `municipality`, `province`, `birth_certificate`, `id_pic`, `cell_no`, `senior_email`, `age`, `request_date`, `request_time`) 
+      $stmt_request = $conn->prepare("INSERT INTO  request_tbl(`first_name`, `middle_name`, `last_name`, `extension`, `birth_date`, `place_birth`, `sex`, `civil_status`, `citizenship`, `purok_id`, `barangay_id`, `municipality_id`, `province_id`, `birth_certificate`, `id_pic`, `cell_no`, `senior_email`, `age`, `request_date`, `request_time`) 
       VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
       $stmt_request->bind_param("sssssssssssssssisiss", $firstN, $midN, $lastN, $extension, $birth_date, $birth_place, $sex, $civil_stat, $citizen, $purok, $barangay, $municipality, $province, $new_birth_name, $new_id_name, $cellno, $email, $age, $request_date, $request_time);
       $stmt_request->execute();

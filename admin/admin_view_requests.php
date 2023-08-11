@@ -85,7 +85,7 @@
     ?>
 
     <div class="mid-div-requests">
-        <img src="../user/id_pics/<?php echo $row['id_pic'] ?>" alt="" class="request-img">
+        <img src="../user/requests/id_pics/<?php echo $row['id_pic'] ?>" alt="" class="request-img">
 
         <div class="request-details">
             <div>
@@ -131,7 +131,7 @@
                 <h2>Birth Certificate</h2>
               </div>
               <div class="modal-body">
-                <img src="../user/birth_certificate/Lester_The_Catid_pic_04-25-08-03.jpg" alt="">
+                <img src="../user/requests/birth_certificate/<?= $row['birth_certificate'] ?>" alt="">
               </div>
             </div> 
 
@@ -144,7 +144,7 @@
     <div class="right-div">
       <div class="attachment" id="myBtn">
         <div class="attach-prev">
-          <img src="../user/birth_certificate/Lester_The_Catid_pic_04-25-08-03.jpg" alt="" class="attach-image">
+          <img src="../user/requests/birth_certificate/<?= $row['birth_certificate'] ?>" alt="" class="attach-image">
         </div>
         <div class="attach-foot">
           Preview Images

@@ -6,6 +6,13 @@
   padding: 0;
 }
 
+#pic-type-error, #birth-type-error {
+  color: red;
+  display: none;
+  font-family: sans-serif;
+  font-size: 18px;
+}
+
 /*all error messages go here */
 .age-error {
   color: red;
@@ -50,7 +57,7 @@
 
   background-color: lightblue;
   min-height: 80vh;
-  min-width: 30vh;
+  min-width: 40vw;
   max-height: 90vh;
   margin: 5%;
   padding: 5% 5%;

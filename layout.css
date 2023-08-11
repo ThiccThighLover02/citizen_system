@@ -2,11 +2,78 @@
 @import url('https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200');
 
 :root {
+    /* original green
     --primary-green: #3cd36e;
     --secondary-green: #b0edc4;
     --accent-green: #27aa53;
     --text-green: #082110;
     --background-green: #def7e6;
+    --gradient-background: linear-gradient(to right top, #3cd36e, #5fda85, #7ce19b, #96e7b0, #b0edc4);
+    */
+
+    --primary-green: #70191c;
+    --secondary-green: #f4f2cd;
+    --accent-green: #c82d32;
+    --text-green: #082524;
+    --background-green: #eefbfb;
+    --gradient-background: linear-gradient(to right top, #70191c, #935236, #b3875d, #d2bc91, #f4f2cd);
+
+
+    /*
+    --primary-green: #0a8a50;
+    --secondary-green: #c1fbe1;
+    --accent-green: #10e082;
+    --text-green: #010e08;
+    --background-green: #d4fcea;
+    --gradient-background: linear-gradient(to left bottom, #0a8a50, #45a674, #6fc298, #97debc, #c1fbe1);
+    */
+
+    /* dark purple woah
+    --primary-green: #4f2754;
+    --secondary-green: #dfb9d0;
+    --accent-green: #8c406e;
+    --text-green: #181023;
+    --background-green: #f1eef7;
+    --gradient-background: linear-gradient(to left bottom, #4f2754, #724870, #966c8f, #bb92ae, #dfb9d0);
+    */
+    
+    /* purple? i guess? 
+    --primary-green: #a62671;
+    --secondary-green: #efb8bd;
+    --accent-green: #a729b3;
+    --text-green: #000000;
+    --background-green: #eefbf4;
+    --gradient-background: linear-gradient(to right top, #a62671, #bc4f7e, #d0728f, #e095a4, #efb8bd);
+    */
+
+    /*kinda like this black? not sure if it's good for seniors tho
+    --primary-green: #383335;
+    --secondary-green: #d6d1d4;
+    --accent-green: #73686d;
+    --text-green: #100f0f;
+    --background-green: #f0eff0;
+    --gradient-background: linear-gradient(to right top, #383335, #5c5759, #837d80, #aba6a9, #d6d1d4);
+    */
+    
+     /*nah i don't like this color
+    --primary-green: #8fb3ff;
+    --secondary-green: #ebf1ff;
+    --accent-green: #d41d6d;
+    --text-green: #000000;
+    --background-green: #ffffff;
+    --gradient-background: linear-gradient(to right top, #8fb3ff, #a7c2ff, #bed2ff, #d5e1ff, #ebf1ff);
+    */
+    
+    
+    /* i like this rusty brown color
+    --primary-green: #cd6437;
+    --secondary-green: #f2d6ca;
+    --accent-green: #c05b30;
+    --text-green: #251109;
+    --background-green: #f7e6de;
+    --gradient-background: linear-gradient(to right top, #cd6437, #da815a, #e49d7e, #ecb9a3, #f2d6ca);
+    */
+    
 }
 
 
@@ -27,6 +94,19 @@
 
 #Active {
     background-color: var(--secondary-green);
+}
+
+#mid-scan-benefits {
+    display: none;
+}
+
+
+#mid-scan-search {
+    display: none;
+}
+
+#pic-type-error {
+    display: none;
 }
 
 .attachment {
@@ -70,10 +150,31 @@
 }
 
 body {
-    background-image: linear-gradient(to right top, #3cd36e, #5fda85, #7ce19b, #96e7b0, #b0edc4);
+    background-image: var(--gradient-background);
     background-size: cover;
     overflow: hidden;
     
+}
+
+.check {
+    align-items: center;
+    display: flex;
+    gap: 1rem;
+    padding: 5px;
+}
+
+.check p {
+    font-family: sans-serif;
+    font-size: 20px;
+}
+
+.check-box {
+    background-color: var(--accent-green) ;
+    border: none;
+    border-radius: 10px;
+    color: var(--background-green);
+    height: 5vh;
+    width: 100%;
 }
 
 .left-button {
@@ -157,7 +258,7 @@ body {
     margin-top: 2%;
     padding: 0px 20px 20px 20px;
     overflow: auto;
-    width: 100vw;
+    width: 96vw;
     
 }
 
@@ -221,6 +322,11 @@ body {
 
 .mid-div::-webkit-scrollbar-thumb {
     background-color: transparent;
+}
+
+.mid-scan {
+    height: 100%;
+    width: 100%;
 }
 
 /* this is for the modal */
@@ -322,7 +428,7 @@ body {
 .right-div {
     display: grid;
     grid-template-columns: auto auto;
-    height: 60vh;
+    height: 50vh;
     gap: 5px;
     width: 25vw;
 }
@@ -338,6 +444,11 @@ body {
     height: 20vh;
     justify-content: center;
     width: 20vh;
+}
+
+.right-div-buttons:hover {
+    animation: bounce 0.5s 1 linear;
+    position: relative;
 }
 
 .right-div-buttons p {
@@ -373,6 +484,21 @@ body {
     width: 25vw;
 }
 
+.right-div-scan {
+    background-color: var(--background-green);
+    border-radius: 15px;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    height: 50vh;
+    padding: 15px;
+    width: 20vw;
+}
+
+.right-div-scan h3{
+    font-family: sans-serif;
+}
+
 
 .senior-table {
     border-collapse: collapse;
@@ -397,7 +523,7 @@ body {
 
 .senior-table th {
     background-color: var(--primary-green);
-    color: var(--text-green);
+    color: var(--background-green);
 }
 
 .senior-table th, td{
@@ -458,8 +584,12 @@ body {
     color: var(--secondary-green);
 }
 
+
+
  /* Add Animation */
  @keyframes animatetop {
     from {top: -300px; opacity: 0}
     to {top: 0; opacity: 1}
-  } 
+  }
+
+@keyframes bounce { 0%, 100% { top: 0; } 30% { top: 20px; } 50% { top: 10px; } 80% { top: 20px; } }

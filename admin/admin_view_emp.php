@@ -70,7 +70,7 @@
     </div>
 
     <div class="mid-div">
-      <table class="senior-table">
+      <table class="senior-table" id="emp-tbl">
         <thead class="table-head">
           <tr>
             <th></th>
@@ -131,7 +131,7 @@
 
     <div class="right-div">
 
-      <button class="right-div-buttons">
+      <button class="right-div-buttons" onclick="add_empFunction()">
         <div class="right-div-button-div">
           <span class="material-symbols-outlined" id="right-button">
               person_add
@@ -140,7 +140,7 @@
         <p class="right-p">Add user</p>
       </button>
 
-      <button class="right-div-buttons">
+      <button class="right-div-buttons" onclick="search_empFunction()">
         <div class="right-div-button-div">
           <span class="material-symbols-outlined" id="right-button">
               search
@@ -149,7 +149,7 @@
         <p class="right-p">Search for user</p>
       </button>
 
-      <button class="right-div-buttons">
+      <button class="right-div-buttons" onclick="logs_function()">
         <div class="right-div-button-div">
           <span class="material-symbols-outlined" id="right-button">
               menu_book
@@ -158,7 +158,7 @@
         <p class="right-p">View login logs</p>
       </button>
 
-      <button class="right-div-buttons">
+      <button class="right-div-buttons" onclick="excel_function()">
           <span class="material-symbols-outlined" id="right-button">
               download
           </span>
@@ -168,7 +168,7 @@
     </div>
 
   </div>
-  
 
   </body>
+
 </html>
