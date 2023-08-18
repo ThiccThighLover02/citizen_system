@@ -50,7 +50,7 @@ if (isset($_POST['email']) && isset($_POST['password'])){
         $stmt->execute();
         */
 
-        if ($row['admin_email'] === $email && $row['admin_password'] === $pass) { //if the username and password is correct this code will run
+        if ($row['admin_username'] === $username && $row['admin_password'] === $pass) { //if the username and password is correct this code will run
 
             $_SESSION['admin_status'] = "Active";
 

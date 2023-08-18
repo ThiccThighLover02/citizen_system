@@ -64,7 +64,7 @@ if (isset($_POST['email']) && isset($_POST['password'])){
             $stmt->bind_param("si", $active, $row['emp_id']);
             $stmt->execute();
 
-            header("Location:senior_home.php");
+            header("Location:user_home.php");
 
             exit();
 

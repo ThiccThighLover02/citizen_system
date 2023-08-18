@@ -1,3 +1,18 @@
+<?php
+session_start();
+include "../db_connect.php";
+
+
+if(isset($_SESSION['senior_id']) && $_SESSION['senior_status'] == "Active") {
+
+  $sql = $conn->prepare("SELECT id_pic FROM senior_tbl WHERE senior_id=?");
+  $sql->bind_param("s", $_SESSION['senior_id']);
+  $sql->execute();
+  $result = $sql->get_result();
+  $row = mysqli_fetch_assoc($result);
+
+?>
+
 <!doctype html>
 <html lang="en">
   <head>
@@ -16,7 +31,7 @@
   <div class="main-div">
 
     <div class="left-div">
-      <button class="left-button" style="border-top-left-radius: 15px; border-top-right-radius: 15px;"><img src="id_pics/2x2 pic.jpg" alt="" class="profile-pic">
+      <button class="left-button" style="border-top-left-radius: 15px; border-top-right-radius: 15px;"><img src="senior_pics/id_pics/<?= $row['id_pic'] ?>" alt="" class="profile-pic">
         <p>Profile</p>
       </button>
 
@@ -73,3 +88,10 @@
 
   </body>
 </html>
+
+<?php
+}
+else {
+  header("Location: senior_login.php");
+}
+?>

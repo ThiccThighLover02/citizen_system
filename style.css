@@ -17,6 +17,13 @@
   max-height: 35px;
 }
 
+.forgot_info {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  justify-content: center;
+}
+
 .label-email{
 
   font-family: sans-serif;
@@ -299,6 +306,7 @@
 
   }
 
+
   .label-email {
 
     font-size: 20px;
@@ -327,7 +335,7 @@
     
     background-color: #ececec;
     border-radius: 8px;
-    min-height: 10vh;
+    min-height: 80vh;
     max-width: 60vh;
     max-height: 90vh;
     margin: 3% auto;
@@ -345,6 +353,27 @@
 
   .material-symbols-outlined{
     font-size: 35px;
+  }
+
+  .otp-box{
+    align-items: center;
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+  }
+
+  .otp-box input{
+    border: 2px solid black;
+    border-radius: 5px;
+    font-family: sans-serif;
+    font-size: 32px;
+    height: 8vh;
+    text-align: center;
+    width: 3vw;
+  }
+
+  .otp-box input:focus {
+    border: 2px solid green;
   }
 
   .submit-button {

@@ -9,7 +9,7 @@ if(isset($_SESSION['senior_status'])) {
     $senior_id = $_SESSION['senior_id'];
     $session_no = $_SESSION['session_no'];
 
-    $out_date = date("Y-d-m");
+    $out_date = date("Y-m-d");
     $out_time = date("H:i:s");
     $status = "Inactive";
 
@@ -74,15 +74,19 @@ elseif(isset($_SESSION['admin_status'])){
     $out_time = date("H:i:s");
     $status = "Inactive";
 
+    /*
     #prepared statement to update senior status to inactive
     $stat_stmt = $conn->prepare("UPDATE admin_tbl SET status=? WHERE admin_id=?");
     $stat_stmt->bind_param("si", $status, $admin_id);
     $stat_stmt->execute();
+    */
     
     #prepared statement to update senior log
+    /*
     $log_stmt = $conn->prepare("UPDATE log_tbl SET out_time=?, out_date=? WHERE senior_id=? AND session_no=?");
     $log_stmt->bind_param("ssii", $out_time, $out_date, $senior_id, $session_no);
     $log_stmt->execute();
+    */
     
 
     #these will make sure that the only session to be destroyed are your sessions and not other sessions

@@ -1,6 +1,82 @@
 /* All import goes here */
 @import url('https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200');
 
+:root {
+  /* original green
+  --primary-green: #3cd36e;
+  --secondary-green: #b0edc4;
+  --accent-green: #27aa53;
+  --text-green: #082110;
+  --background-green: #def7e6;
+  --gradient-background: linear-gradient(to right top, #3cd36e, #5fda85, #7ce19b, #96e7b0, #b0edc4);
+  */
+
+  --primary-green: #70191c;
+  --secondary-green: #f4f2cd;
+  --accent-green: #c82d32;
+  --text-green: #082524;
+  --background-green: #eefbfb;
+  --gradient-background: linear-gradient(to right top, #70191c, #935236, #b3875d, #d2bc91, #f4f2cd);
+
+
+  /*
+  --primary-green: #0a8a50;
+  --secondary-green: #c1fbe1;
+  --accent-green: #10e082;
+  --text-green: #010e08;
+  --background-green: #d4fcea;
+  --gradient-background: linear-gradient(to left bottom, #0a8a50, #45a674, #6fc298, #97debc, #c1fbe1);
+  */
+
+  /* dark purple woah
+  --primary-green: #4f2754;
+  --secondary-green: #dfb9d0;
+  --accent-green: #8c406e;
+  --text-green: #181023;
+  --background-green: #f1eef7;
+  --gradient-background: linear-gradient(to left bottom, #4f2754, #724870, #966c8f, #bb92ae, #dfb9d0);
+  */
+  
+  /* purple? i guess? 
+  --primary-green: #a62671;
+  --secondary-green: #efb8bd;
+  --accent-green: #a729b3;
+  --text-green: #000000;
+  --background-green: #eefbf4;
+  --gradient-background: linear-gradient(to right top, #a62671, #bc4f7e, #d0728f, #e095a4, #efb8bd);
+  */
+
+  /*kinda like this black? not sure if it's good for seniors tho
+  --primary-green: #383335;
+  --secondary-green: #d6d1d4;
+  --accent-green: #73686d;
+  --text-green: #100f0f;
+  --background-green: #f0eff0;
+  --gradient-background: linear-gradient(to right top, #383335, #5c5759, #837d80, #aba6a9, #d6d1d4);
+  */
+  
+   /*nah i don't like this color
+  --primary-green: #8fb3ff;
+  --secondary-green: #ebf1ff;
+  --accent-green: #d41d6d;
+  --text-green: #000000;
+  --background-green: #ffffff;
+  --gradient-background: linear-gradient(to right top, #8fb3ff, #a7c2ff, #bed2ff, #d5e1ff, #ebf1ff);
+  */
+  
+  
+  /* i like this rusty brown color
+  --primary-green: #cd6437;
+  --secondary-green: #f2d6ca;
+  --accent-green: #c05b30;
+  --text-green: #251109;
+  --background-green: #f7e6de;
+  --gradient-background: linear-gradient(to right top, #cd6437, #da815a, #e49d7e, #ecb9a3, #f2d6ca);
+  */
+  
+}
+
+
 * {
   margin: 0;
   padding: 0;
@@ -20,6 +96,25 @@
   display: none;
 }
 
+.bruh {
+  background-image: var(--gradient-background);
+  padding: 15px;
+}
+
+.input-fields {
+
+  border: solid black 1px;
+  border-radius: 4px;
+  font-family: sans-serif;
+  font-size: 14px;
+  margin-top: 3%;
+  margin-bottom: 3%;
+  min-height: 35px;
+  min-width: 100%;
+  max-height: 35px;
+
+}
+
 
 .label{
   font-family: sans-serif;
@@ -37,7 +132,7 @@
 .label-password{
   
   font-family: sans-serif;
-  font-size: 20px;
+  font-size: 16px;
   position: relative;
   
 
@@ -54,13 +149,14 @@
 }
 
 .login_form {
-
-  background-color: lightblue;
-  min-height: 80vh;
-  min-width: 40vw;
+    
+  background-color: var(--secondary-green);
+  border-radius: 8px;
+  min-height: 10vh;
+  max-width: 80vw;
   max-height: 90vh;
-  margin: 5%;
-  padding: 5% 5%;
+  margin: 3% auto;
+  padding: 1% 2%;
   overflow-y: auto;
 
 }
@@ -125,51 +221,84 @@ option {
     background-image: url(munisipyobckgrnd.jpg);
     background-repeat: no-repeat;
     background-size: cover;
+    overflow: hidden;
+    
   }
 
-  .email {
-    min-height: 40px;
+  .input-fields {
+
+    border: solid black 1px;
+    border-radius: 4px;
+    font-family: sans-serif;
+    font-size: 20px;
+    margin-top: 3%;
+    margin-bottom: 3%;
+    min-height: 35px;
+    min-width: 100%;
+    max-height: 35px;
+
   }
 
   .label-email {
-    font-size: 25px;
+
+    font-size: 20px;
+
   }
 
   .label-password {
-    font-size: 25px;
+
+    font-size: 20px;
+
   }
 
   .links {
+    font-size: 20px;
+  }
 
-    font-size: 25px;
+  .logo {
+    
+    margin: 2% auto;
+    min-width: 60px;
+    max-width: 90px;
 
   }
 
   .login_form {
-
-    background-color: lightblue;
-    margin: 5%;
-    padding: 5% 5%;
+    
+    background-color: #ececec;
+    border-radius: 8px;
+    min-height: 10vh;
+    max-width: 60vw;
+    max-height: 80vh;
+    margin: 3% auto;
+    padding: 1% 2%;
   
   }
+  
 
   .login_info {
     display: flex;
     flex-direction: column;
+    justify-content: center;
+    overflow-x: hidden;
+    overflow-y: auto;
   }
 
   .material-symbols-outlined{
-    font-size: 40px;
+    font-size: 35px;
   }
+
 
   .submit-button {
     
-    font-size: 25px;
-    min-height: 40px;
+    margin-top: 3%;
+    margin-bottom: 3%;
+
   }
 }
 
 @media screen and (min-width: 1025px) {
+
 
   .bruh{
     background-image: url(munisipyobckgrnd.jpg);

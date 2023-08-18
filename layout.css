@@ -11,12 +11,14 @@
     --gradient-background: linear-gradient(to right top, #3cd36e, #5fda85, #7ce19b, #96e7b0, #b0edc4);
     */
 
+    /* I like this maroon like color hahaha
     --primary-green: #70191c;
     --secondary-green: #f4f2cd;
     --accent-green: #c82d32;
     --text-green: #082524;
     --background-green: #eefbfb;
     --gradient-background: linear-gradient(to right top, #70191c, #935236, #b3875d, #d2bc91, #f4f2cd);
+    */
 
 
     /*
@@ -28,7 +30,7 @@
     --gradient-background: linear-gradient(to left bottom, #0a8a50, #45a674, #6fc298, #97debc, #c1fbe1);
     */
 
-    /* dark purple woah
+    /* dark purple woah 
     --primary-green: #4f2754;
     --secondary-green: #dfb9d0;
     --accent-green: #8c406e;
@@ -37,14 +39,13 @@
     --gradient-background: linear-gradient(to left bottom, #4f2754, #724870, #966c8f, #bb92ae, #dfb9d0);
     */
     
-    /* purple? i guess? 
+    /* purple? i guess? */
     --primary-green: #a62671;
     --secondary-green: #efb8bd;
     --accent-green: #a729b3;
     --text-green: #000000;
     --background-green: #eefbf4;
     --gradient-background: linear-gradient(to right top, #a62671, #bc4f7e, #d0728f, #e095a4, #efb8bd);
-    */
 
     /*kinda like this black? not sure if it's good for seniors tho
     --primary-green: #383335;
@@ -54,6 +55,7 @@
     --background-green: #f0eff0;
     --gradient-background: linear-gradient(to right top, #383335, #5c5759, #837d80, #aba6a9, #d6d1d4);
     */
+    
     
      /*nah i don't like this color
     --primary-green: #8fb3ff;
@@ -87,6 +89,10 @@
     color: var(--background-green);
 }
 
+#accept-request{
+    text-decoration: none;
+}
+
 #reject:hover {
     background-color: var(--secondary-green);
     color:rgb(253, 59, 59);
@@ -109,12 +115,46 @@
     display: none;
 }
 
+#req-notif {
+    align-items: center;
+    background-color: var(--accent-green);
+    border-radius: 50%;
+    color: var(--background-green);
+    display: flex;
+    float: right;
+    height: 5vh;
+    justify-content: center;
+    margin-left: 8vw;
+    width: 5vh;
+}
+
+.add-post {
+    background: var(--background-green);
+    border-radius: 15px;
+    height: 20vh;
+}
+
 .attachment {
     background-color: #fefefe;
     border-radius: 10px;
+    cursor: pointer;
     flex-direction: column;
     height: 30vh;
     grid-column: 1/3;
+}
+
+.Active {
+    background-color: green;
+    border-radius: 50%;
+    height: 2vh;
+    width: 2vh;
+}
+
+.Inactive {
+    background-color: red;
+    border-radius: 50%;
+    height: 2vh;
+    width: 2vh;
 }
 
 .attach-foot{
@@ -128,6 +168,7 @@
     font-size: 18px;
     height: 25%;
     justify-content: center;
+    cursor: pointer;
     width: 100%;
 }
 
@@ -177,6 +218,43 @@ body {
     width: 100%;
 }
 
+.create-body{
+
+}
+
+.create-content {
+    position: relative;
+    background-color: #fefefe;
+    overflow: auto;
+    margin: 5vh auto;
+    border-radius: 15px;
+    width: 50vw;
+    height: 90vh;
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);
+    animation-name: animatetop;
+    animation-duration: 0.4s
+}
+
+.create-header {
+    background-color: var(--primary-green);
+    color: white;
+    text-align: center;
+    padding: 10px;
+
+}
+
+.create-header h2 {
+    font-family: sans-serif;
+}
+
+.da-pic {
+    width: 100%;
+}
+
+.empty h1 {
+    font-family: sans-serif;
+}
+
 .left-button {
     align-items: center;
     border: none;
@@ -185,6 +263,7 @@ body {
     display: flex;
     font-family: sans-serif;
     font-size: 20px;
+    gap: 1rem;
     height: 10vh;
     width: 100%;
     
@@ -207,6 +286,10 @@ body {
     height: 80vh;
     padding: 15px;
     width: 25vw;
+}
+
+.link {
+    text-decoration: none;
 }
 
 .logout-button {
@@ -238,7 +321,7 @@ body {
 }
 
 .in-mid {
-    align-items: baseline;
+    align-items: center;
     display: flex;
     height: 10vh;
     justify-content: space-around;
@@ -249,6 +332,15 @@ body {
 .in-mid h3{
     font-family: sans-serif;
     font-size: 18px;
+}
+
+.home-div {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    height: 85vh;
+    overflow: overlay;
+    width: 50vw;
 }
 
 .main-div {
@@ -285,6 +377,18 @@ body {
     width: 50vw;
 }
 
+.mid-div-empty {
+    align-items: center;
+    background-color: var(--background-green);
+    border-radius: 15px;
+    box-shadow: rgba(255, 255, 255, 0.1) 0px 1px 1px 0px inset, rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px;
+    display: flex;
+    height: 85vh;
+    justify-content: center;
+    overflow: overlay;
+    width: 50vw;
+}
+
 .mid-div-only {
     align-items: center;
     background-color: var(--background-green);
@@ -292,9 +396,8 @@ body {
     box-shadow: rgba(255, 255, 255, 0.1) 0px 1px 1px 0px inset, rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px;
     display: flex;
     flex-direction: column;
-    height: 81.5vh;
+    height: 84.8vh;
     overflow: overlay;
-    padding-top: 20px;
     width: 67vw; 
 }
 
@@ -321,7 +424,8 @@ body {
 }
 
 .mid-div::-webkit-scrollbar-thumb {
-    background-color: transparent;
+    background-color: gray;
+    border-radius: 15px;
 }
 
 .mid-scan {
@@ -335,7 +439,7 @@ body {
  .modal-header {
     padding: 2px 16px;
     background-color: var(--primary-green);
-    color: white;
+    color: var(--background-green);
   }
   
   /* Modal Body */
@@ -376,7 +480,7 @@ body {
   }
     
     .close {
-      color: #f0edff;
+      color: var(--background-green);
       float: right;
       font-size: 40px;
       font-weight: bold;
@@ -385,10 +489,30 @@ body {
     
     .close:hover,
     .close:focus {
-      color: #00c893;
+      color: var(--accent-green);
       text-decoration: none;
       cursor: pointer;
     }
+
+.post {
+    background-color: var(--background-green);
+    border-radius: 15px;
+    box-shadow: rgba(255, 255, 255, 0.1) 0px 1px 1px 0px inset, rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    padding: 15px;
+    scrollbar-width: thin;
+}
+
+.post-details {
+    font-family: sans-serif;
+    font-size: 18px;
+}
+
+.post-head {
+    font-family: sans-serif;
+}
 
 .profile-pic {
     border-radius: 25px;
@@ -421,6 +545,19 @@ body {
 .request-info {
     font-family: sans-serif;
     font-size: 20px;
+}
+
+.request-header {
+    background: var(--primary-green);
+    height: 7vh;
+    overflow: hidden;
+    width: 100%;
+}
+
+.request-header h1 {
+    color: var(--background-green);
+    font-family: sans-serif;
+    margin: 5px 15px 5px 15px;
 }
 
 
@@ -500,9 +637,14 @@ body {
 }
 
 
+.scrollable-element {
+    scrollbar-width: thin;
+  }
+
 .senior-table {
     border-collapse: collapse;
     border-radius: 15px;
+    width: 100%;
 }
 
 .table-head tr:first-child th:first-child {
@@ -531,12 +673,31 @@ body {
     min-width: 50px;
     max-height: 20px;
     font-size: 16px;
-    padding: 15px 12px 15px;
+    padding: 15px 12px 5px 12px;
     text-align: center;
+}
+
+.stats {
+    align-items: baseline;
+    display: flex;
+    gap: 1rem;
+    margin: 1vh;
 }
 
 .table-body tr {
     border-bottom: 2px solid var(--secondary-green);
+}
+
+.title {
+    align-items: center;
+    display: flex;
+    width: 100%;
+}
+
+.title h3 {
+    font-family: sans-serif;
+    font-size: 23px
+
 }
 
 
@@ -546,6 +707,20 @@ body {
     height: 8vh;
     padding: 0px 15px 0px 15px;
     width: 100vw;
+}
+
+.top-post {
+    display: flex;
+    padding: 10px;
+}
+
+.top-post input {
+    border: none;
+    border-radius: 30px;
+    font-family: sans-serif;
+    font-size: 20px;
+    padding: 0px 10px;
+    width: 90%;
 }
 
 .view-button {
@@ -593,3 +768,18 @@ body {
   }
 
 @keyframes bounce { 0%, 100% { top: 0; } 30% { top: 20px; } 50% { top: 10px; } 80% { top: 20px; } }
+
+ /* Works on Chrome, Edge, and Safari */
+ *::-webkit-scrollbar {
+    width: 12px;
+}
+
+*::-webkit-scrollbar-track {
+    background: var(--scroll-bar-bg-color);
+}
+
+*::-webkit-scrollbar-thumb {
+    background-color: var(--secondary-green);
+    border-radius: 20px;
+    border: 3px solid var(--scroll-bar-bg-color);
+}

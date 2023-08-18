@@ -91,7 +91,7 @@
          header("Location: create_acc.php?img_ex=false"); #this will execute if the file is not a jpeg or png
         }
     }
-}
+  }
    
 
   if ($age < 60) {

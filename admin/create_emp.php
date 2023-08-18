@@ -7,7 +7,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Add User</title>
+    <title>Senior Login Page</title>
     <link rel="stylesheet" href ="../senior/create.css?v=<?php echo time(); ?>">
     
   </head>
@@ -21,13 +21,13 @@
         </span>
       </a>
 
-      <h1 class="login_header">Add User</h1>
+      <h2 class="login_header">Create Account</h2>
 
-      <form action="request_acc.php" method="post" class="login_info" enctype="multipart/form-data">
+      <form action="add_emp.php" method="post" class="login_info" enctype="multipart/form-data">
 
         <!-- Full Name -->
         <div>
-            <label for="" class="label">Full Name:</label>
+            <label for="" class="label-email">Full Name:</label>
             <input type="text" class="input-fields" name="first_name" placeholder="First Name" required>
             <input type="text" class="input-fields" name="middle_name" placeholder="Middle Name(Leave blank if none)"> 
             <input type="text" class="input-fields" name="last_name" placeholder="Last Name" required> 
@@ -121,14 +121,9 @@
           <p id="pic-type-error" style="display:none;">This is not a jpeg file</p>  
         </div>
 
-        <div>
-          <label for="" class="label-email">Birth Certificate</label>
-          <input type="file" class="input-fields-picture" name="birth_certificate" id="birth-certificate" required>
-          <p id="birth-type-error" style="display:none;">This is not a jpeg file</p>
-        </div>
         
 
-        <input type="submit" value="Create Account" class="submit-button">
+        <input type="submit" value="Send Request" class="submit-button">
 
       </form>
 

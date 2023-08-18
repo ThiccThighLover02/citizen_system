@@ -1,5 +1,6 @@
 <?php
   include "../db_connect.php";
+  include "../req_count.php";
 
 
 ?>
@@ -22,9 +23,7 @@
   <div class="main-div">
 
     <div class="left-div">
-      <button class="left-button" style="border-top-left-radius: 15px; border-top-right-radius: 15px;"><img src="id_pics/2x2 pic.jpg" alt="" class="profile-pic">
-        <p>Profile</p>
-      </button>
+      
 
       <button class="left-button" onclick="home_function()">
         <span class="material-symbols-outlined">
@@ -52,13 +51,16 @@
           description
         </span>
         <p>Requests</p>
-      </button>
+        <?php
+          if($row_count > 0){
 
-      <button class="left-button" onclick="scan_function()">
-        <span class="material-symbols-outlined">
-          qr_code
-        </span>
-        <p>Scan QR code</p>
+        ?>
+        <div id="req-notif">
+          <?= $row_count ?>
+        </div>
+        <?php
+          }
+        ?>
       </button>
 
       <button class="logout-button" onclick="logout_function()">
@@ -68,34 +70,35 @@
         <p>Logout</p>
       </button>
     </div>
+    <?php 
+      #Select all of the data in the emp table
+      $sql = mysqli_query($conn, "SELECT * FROM emp_tbl");
 
+      $row_count = mysqli_num_rows($sql);
+
+      if($row_count == 0) {
+
+    ?>
+    <div class="mid-empty">
+      <h1>There are no employees yet</h1>
+    </div>
+    <?php
+      }
+      elseif($row_count > 0) {
+
+    ?>
     <div class="mid-div">
       <table class="senior-table" id="emp-tbl">
         <thead class="table-head">
           <tr>
-            <th></th>
             <th>Senior No.</th>
             <th>Status</th>
             <th>Name</th>
-            <th>Birth Date</th>
-            <th>Birth Place</th>
-            <th>Age</th>
-            <th>Sex</th>
-            <th>Civil Status</th>
-            <th>Citizenship</th>
-            <th>Cellphone No.</th>
-            <th>Purok</th>
-            <th>Barangay</th>
-            <th>Municipality</th>
-            <th>Province</th>
+            <th>Users: <?= $row_count ?></th>
           </tr>
         </thead>
         <tbody class="table-body">
           <?php
-            #Select all of the data in the senior table
-            $sql = mysqli_query($conn, "SELECT * FROM emp_tbl E RIGHT JOIN purok_tbl P ON E.purok_id = P.purok_id
-            RIGHT JOIN barangay_tbl B ON E.barangay_id = B.barangay_id RIGHT JOIN municipality_tbl M ON E.municipality_id = M.municipality_id
-            RIGHT JOIN province_tbl PR ON E.province_id = PR.province_id");
 
             while($row = mysqli_fetch_array($sql)){
               $birthday = $row['birth_date'];
@@ -105,21 +108,10 @@
           
           ?>
           <tr>
-            <td><a href="view_emp_acc.php?email=<?php echo $row['emp_email']; ?>&name=<?php echo $row['full_name'] ?>"><input type="button" value="View details" class="view-button"></a></td>
             <td><?=str_pad($row['emp_id'], 6, '0', STR_PAD_LEFT); ?></td>
-            <td><?= $row['status'] ?></td>
+            <td class="stats"><div class="<?= $row['status'] ?>"></div><?= $row['status'] ?> </td>
             <td><?= $row['full_name'] ?></td>
-            <td><?= $row['birth_date'] ?></td>
-            <td><?= $row['birth_place'] ?></td>
-            <td><?php echo $age; ?></td>
-            <td><?= $row['sex'] ?></td>
-            <td><?= $row['civil_status'] ?></td>
-            <td><?= $row['citizenship'] ?></td>
-            <td><?= str_pad($row['cell_no'], 13, '+63', STR_PAD_LEFT) ?></td>
-            <td><?= $row['purok_no'] ?></td>
-            <td><?= $row['barangay_name'] ?></td>
-            <td><?= $row['municipality_name'] ?></td>
-            <td><?= $row['province_name'] ?></td>
+            <td><a href="admin_view_emp_acc.php?id=<?= $row['emp_id'] ?>"><input type="button" value="View details" class="view-button"></a></td>
           </tr>
           <?php
             }
@@ -128,9 +120,12 @@
       </table>
 
     </div>
+    <?php
+      }
+    ?>
 
     <div class="right-div">
-
+      <a href="create_emp.php" class="link">
       <button class="right-div-buttons" onclick="add_empFunction()">
         <div class="right-div-button-div">
           <span class="material-symbols-outlined" id="right-button">
@@ -139,7 +134,9 @@
         </div>
         <p class="right-p">Add user</p>
       </button>
+      </a>
 
+      <a href="create_emp.php" class="link">
       <button class="right-div-buttons" onclick="search_empFunction()">
         <div class="right-div-button-div">
           <span class="material-symbols-outlined" id="right-button">
@@ -148,22 +145,20 @@
         </div>
         <p class="right-p">Search for user</p>
       </button>
+      </a>
 
+      <a href="create_emp.php" class="link">
       <button class="right-div-buttons" onclick="logs_function()">
         <div class="right-div-button-div">
           <span class="material-symbols-outlined" id="right-button">
               menu_book
           </span>
         </div>
-        <p class="right-p">View login logs</p>
+        <p class="right-p">View logs</p>
       </button>
+      </a>
 
-      <button class="right-div-buttons" onclick="excel_function()">
-          <span class="material-symbols-outlined" id="right-button">
-              download
-          </span>
-        <p class="right-p">Save excel</p>
-      </button>
+      
 
     </div>
 

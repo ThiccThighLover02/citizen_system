@@ -36,11 +36,15 @@
         <input type="email" class="email" name="email" placeholder="Email Address">
 
         <!-- <label for="" class="label-password">Password</label> -->
-        <input type="password" class="email" name="password" placeholder="Password">
+        <input type="password" class="email" name="password" placeholder="Password" id="pass_word">
+        <div class="show-pass">
+          <input type="checkbox" class="checkbox" id="check-box" onclick="show_pass()">
+          <label for="">Show Password</label>
+        </div>
 
         <input type="submit" value="Login" class="submit-button">
 
-        <a href="" class="links">Forgot Password</a>
+        <a href="senior_forgot.php" class="links">Forgot Password</a>
         <p class="links">Not registered? <a href="create_acc.php" class="links">Create Account</a></p>
 
       </form>
@@ -48,6 +52,17 @@
     </div>
     
   </body>
+  <script>
+    function show_pass() {
+      var x = document.getElementById("pass_word");
+      if (x.type === "password") {
+        x.type = "text";
+      } else {
+        x.type = "password";
+      }
+    }
+
+  </script>
 </html>
 
 <?php

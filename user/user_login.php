@@ -1,4 +1,13 @@
-
+<?php
+  include "../db_connect.php";
+  session_start();
+  
+  if (isset($_SESSION['emp_status']) and $_SESSION['emp_status'] == "Active"){
+    header("Location:senior_home.php");
+  }
+  else {
+    
+?>
 
 <!doctype html>
 <html lang="en">
@@ -13,7 +22,7 @@
     
     <div class="login_form">
 
-      <a href="home_page.html">
+      <a href="../index.php">
         <span class="material-symbols-outlined">
           arrow_back
         </span>
@@ -22,7 +31,7 @@
       <img src="../munisipyo.png" alt="" class="logo">
       <h1 class="login_header">Senior Citizen Login</h1>
 
-      <form action="login_check.php" class="login_info">
+      <form action="user_check.php" class="login_info">
         <!--<label for="" class="label-email">Email</label> -->
         <input type="email" class="email" placeholder="Email Address">
 
@@ -38,3 +47,8 @@
     </div>
     
   </body>
+</html>
+
+<?php
+  }
+?>

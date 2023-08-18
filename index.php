@@ -15,8 +15,8 @@
         </button>
         <div class="dropdown-content">
           <a href="senior/senior_login.php">Senior Login</a>
-          <a href="user_login.php">User Login</a>
-          <a href="admin_login.php">Admin Login</a>
+          <a href="user/user_login.php">User Login</a>
+          <a href="admin/admin_login.php">Admin Login</a>
         </div>
       </div>
       <a href="#about">About</a>

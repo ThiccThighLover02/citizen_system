@@ -1,5 +1,6 @@
 <?php
   include "../db_connect.php";
+  include "../req_count.php";
 
   #get the request id from the url
   $request_id = $_GET['request_id'];
@@ -24,9 +25,6 @@
   <div class="main-div">
 
     <div class="left-div">
-    <button class="left-button" style="border-top-left-radius: 15px; border-top-right-radius: 15px;"><img src="id_pics/2x2 pic.jpg" alt="" class="profile-pic">
-        <p>Profile</p>
-      </button>
 
       <button class="left-button" onclick="home_function()">
         <span class="material-symbols-outlined">
@@ -54,13 +52,16 @@
           description
         </span>
         <p>Requests</p>
-      </button>
+        <?php
+          if($row_count > 0){
 
-      <button class="left-button" onclick="scan_function()">
-        <span class="material-symbols-outlined">
-          qr_code
-        </span>
-        <p>Scan QR code</p>
+        ?>
+        <div id="req-notif">
+          <?= $row_count ?>
+        </div>
+        <?php
+          }
+        ?>
       </button>
 
       <button class="logout-button" onclick="logout_function()">
@@ -125,15 +126,15 @@
             <div id="myModal" class="modal">
 
             <!-- Modal content -->
-            <div class="modal-content">
-              <div class="modal-header">
-                <span class="close">&times;</span>
-                <h2>Birth Certificate</h2>
-              </div>
-              <div class="modal-body">
-                <img src="../user/requests/birth_certificate/<?= $row['birth_certificate'] ?>" alt="">
-              </div>
-            </div> 
+              <div class="modal-content">
+                <div class="modal-header">
+                  <span class="close">&times;</span>
+                  <h2>Birth Certificate</h2>
+                </div>
+                <div class="modal-body">
+                  <img src="../user/requests/birth_certificate/<?= $row['birth_certificate'] ?>" alt="">
+                </div>
+              </div> 
 
             </div>
         </div>
@@ -151,7 +152,7 @@
         </div>
       </div>
       <div>
-      <a href="../add_senior.php?request_id=<?= $row['request_id']?>">
+      <a href="../add_senior.php?request_id=<?= $row['request_id']?>" id="accept-request">
         <button class="right-div-buttons-req" id="accept" onclick="accept_function()">
           <p class="right-p">Accept Request</p>
         </button>

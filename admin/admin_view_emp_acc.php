@@ -1,8 +1,9 @@
 <?php
   include "../db_connect.php";
   include "../req_count.php";
+
   #get the request id from the url
-  $senior_id = $_GET['id'];
+  $emp_id = $_GET['id'];
 
 ?>
 
@@ -24,7 +25,7 @@
   <div class="main-div">
 
     <div class="left-div">
-    
+  
 
       <button class="left-button" onclick="home_function()">
         <span class="material-symbols-outlined">
@@ -40,14 +41,14 @@
         <p>Users</p>
       </button>
 
-      <button class="left-button" id="Active" onclick="view_senior()">
+      <button class="left-button" onclick="view_senior()">
         <span class="material-symbols-outlined">
           elderly
         </span>
         <p>Seniors</p>
       </button>
 
-      <button class="left-button" onclick="view_requests()">
+      <button class="left-button" id="Active" onclick="view_requests()">
         <span class="material-symbols-outlined">
           description
         </span>
@@ -64,7 +65,6 @@
         ?>
       </button>
 
-
       <button class="logout-button" onclick="logout_function()">
         <span class="material-symbols-outlined">
           logout
@@ -76,10 +76,10 @@
     <?php
 
         #create a prepared statement to get the request details using the id
-        $stmt = $conn->prepare("SELECT * FROM senior_tbl S RIGHT JOIN purok_tbl P ON S.purok_id = P.purok_id
-        RIGHT JOIN barangay_tbl B ON S.barangay_id = B.barangay_id RIGHT JOIN municipality_tbl M ON S.municipality_id = M.municipality_id
-        RIGHT JOIN  province_tbl PR ON S.province_id = PR.province_id WHERE senior_id=?");
-        $stmt->bind_param("i", $senior_id);
+        $stmt = $conn->prepare("SELECT * FROM emp_tbl E RIGHT JOIN purok_tbl P ON E.purok_id = P.purok_id
+        RIGHT JOIN barangay_tbl B ON E.barangay_id = B.barangay_id RIGHT JOIN municipality_tbl M ON E.municipality_id = M.municipality_id
+        RIGHT JOIN  province_tbl PR ON E.province_id = PR.province_id WHERE emp_id=?");
+        $stmt->bind_param("i", $emp_id);
         $stmt->execute();
         $result = $stmt->get_result();
         $row = mysqli_fetch_array($result);
@@ -87,12 +87,12 @@
     ?>
 
     <div class="mid-div-requests">
-        <img src="../senior/senior_pics/id_pics/<?php echo $row['id_pic'] ?>" alt="" class="request-img">
+        <img src="user_pics/<?php echo $row['id_pic'] ?>" alt="" class="request-img">
 
         <div class="request-details">
             <div>
             <h3 class="detail-head">Name: </h3>
-            <p class="request-info"><?php echo $row['first_name'] . " " . $row['mid_name'] . " " . $row['last_name'] . " " . $row['extension']; ?></p>
+            <p class="request-info"><?php echo $row['first_name'] . " " . $row['middle_name'] . " " . $row['last_name'] . " " . $row['extension']; ?></p>
             </div>
             <div>
             <h3 class="detail-head">Address: </h3>
@@ -100,7 +100,7 @@
             </div>
             <div>
             <h3 class="detail-head">Birthdate: </h3>
-            <p class="request-info"><?php echo $row['date_birth']?></p>
+            <p class="request-info"><?php echo $row['birth_date']?></p>
             </div>
             <div>
             <h3 class="detail-head">Age: </h3>
@@ -123,21 +123,6 @@
             <p class="request-info"><?php echo str_pad($row['cell_no'], 13, '+63', STR_PAD_LEFT);?></p>
             </div>
             
-            <!-- this is the modal for the birth certificate -->
-            <div id="myModal" class="modal">
-
-            <!-- Modal content -->
-            <div class="modal-content">
-              <div class="modal-header">
-                <span class="close">&times;</span>
-                <h2>Birth Certificate</h2>
-              </div>
-              <div class="modal-body">
-                <img src="../user/birth_certificate/Lester_The_Catid_pic_04-25-08-03.jpg" alt="">
-              </div>
-            </div> 
-
-            </div>
         </div>
       
 
@@ -150,10 +135,10 @@
               delete
           </span>
         </div>
-        <p class="right-p">Delete Senior</p>
+        <p class="right-p">Delete User</p>
       </button>
 
-      <button class="right-div-buttons" onclick="view_senior()">
+      <button class="right-div-buttons" onclick="view_emp()">
         <div class="right-div-button-div">
           <span class="material-symbols-outlined" id="right-button">
               arrow_back
