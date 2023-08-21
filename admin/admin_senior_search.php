@@ -79,74 +79,68 @@
 
     $row_count = mysqli_num_rows($row_sql);
     ?>
-    <?php
-        if($row_count == 0){
-          $disabled = "";
-    ?>
-    <div class="mid-div-empty">
-      <div class="empty">
-        <h1>There are no Seniors Here</h1>
-      </div>
-      <script>
-        console.log(<?= $row_count ?>);
-      </script>
-    </div>
-      <?php
-        }
-        elseif($row_count > 0){
-
-      ?>
     <div class="mid-div" id="orig-sen-tbl">
-
-    <table class="senior-table" id="search-result">
-        <thead class="table-head">
-          <tr>
-            <th>Senior No.</th>
-            <th>Status</th>
-            <th>Name</th>
-            <th></th>
-          </tr>
-        </thead>
-        <tbody class="table-body">
-          <?php
-
-            while($row = mysqli_fetch_array($sql)){
-              $birthday = $row['date_birth'];
-              $birthday = new DateTime($birthday);
-              $interval = $birthday->diff(new DateTime);
-              $age = $interval->y;
-          
-          ?>
-          <tr>
-            <td><?=str_pad($row['senior_id'], 6, '0', STR_PAD_LEFT); ?></td>
-            <td class="stats"><div class="<?= $row['status'] ?>"></div><?= $row['status'] ?> </td>
-            <td><?= $row['full_name'] ?></td>
-            <td><a href="admin_senior_acc.php?id=<?= $row['senior_id'] ?>"><input type="button" value="View details" class="view-button"></a></td>
-          </tr>
-          <?php
-          $disabled = "admin_senior_search.php";
-            }
-          ?>
-        </tbody>
-      </table>
-
-    </div>
-
     <?php
-        }
+        if($row_count > 0){
     ?>
+
+        <table class="senior-table" id="search-result">
+            <thead class="table-head">
+              <tr>
+                <th>Senior No.</th>
+                <th>Status</th>
+                <th>Name</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody class="table-body">
+              <?php
+
+                while($row = mysqli_fetch_array($sql)){
+                  $birthday = $row['date_birth'];
+                  $birthday = new DateTime($birthday);
+                  $interval = $birthday->diff(new DateTime);
+                  $age = $interval->y;
+                
+              ?>
+              <tr>
+                <td><?=str_pad($row['senior_id'], 6, '0', STR_PAD_LEFT); ?></td>
+                <td class="stats"><div class="<?= $row['status'] ?>"></div><?= $row['status'] ?> </td>
+                <td><?= $row['full_name'] ?></td>
+                <td><a href="admin_senior_acc.php?id=<?= $row['senior_id'] ?>"><input type="button" value="View details" class="view-button"></a></td>
+              </tr>
+              <?php
+                }
+              ?>
+            </tbody>
+          </table>
+        <?php
+        }
+        ?>
+
+</div>
+     
 
     <div class="right-div">
 
+    <div class="right-search">
+        <button>
+            <span class="material-symbols-outlined" id="search-button">
+              search
+            </span>
+        </button>
 
-    <a href="<?= $disabled ?>" class="link" <?= $disabled ?>>
+        <input type="text" placeholder="Search for senior" id="search">
+    </div>
+
+    <a href="admin_view_senior.php" class="link">
       <button class="right-div-buttons" onclick="add_empFunction()">
         <div class="right-div-button-div">
           <span class="material-symbols-outlined" id="right-button">
-              search
+              cancel
           </span>
         </div>
-        <p class="right-p">Senior Search</p>
+        <p class="right-p">Cancel Search</p>
       </button>
       </a>
 
@@ -170,14 +164,14 @@
       </button>
       </a>
 
-      <a href="admin_senior_log.php" class="link">
+      <a href="create_emp.php" class="link">
       <button class="right-div-buttons" onclick="logs_function()">
         <div class="right-div-button-div">
           <span class="material-symbols-outlined" id="right-button">
               menu_book
           </span>
         </div>
-        <p class="right-p">Senior Logs</p>
+        <p class="right-p">View Senior Logs</p>
       </button>
       </a>
 
@@ -187,5 +181,26 @@
   
 
   </body>
+
+  <script>
+  $(document).ready(function(){
+
+    $("#search").keyup(function(){
+      var search = $(this).val();
+
+      $.ajax({
+        url:'text_jax.php',
+        method:'post',
+        data:{query:search},
+        success:function(response){
+          
+          $("#search-result").html(response);
+
+        }
+      });
+    });
+
+  });
+</script>
 
 </html>

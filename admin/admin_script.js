@@ -30,3 +30,23 @@ function reject_function() {
 function add_empFunction() {
     window.location.href="create_emp.php";
 }
+
+//this is for the theme selection
+
+const colorThemes = document.querySelectorAll('[name="theme"]');
+
+//store theme to local storage
+const storeTheme = function(theme) {
+    localStorage.setItem("theme", theme);
+};
+
+//this will retrieve the them from local storage
+const retrieveTheme = function() {
+    const activeTheme = localStorage.getItem("theme");
+};
+
+colorThemes.forEach((themeOption) => {
+    themeOption.addEventListener("click", () => {
+        storeTheme(themeOption.id);
+    });
+});

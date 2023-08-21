@@ -7,6 +7,18 @@
     require 'vendor/phpmailer/phpMailer/src/SMTP.php';
     include "db_connect.php";
 
+    function admin_or_emp(){
+
+        if(isset($_SESSION['admin_status']) && $_SESSION['admin_status'] == "Active"){
+            header("Location: admin/admin_home.php");
+        }
+
+        elseif(isset($_SESSION['emp_status']) && $_SESSION['emp_status'] == "Active") {
+            header("Location: user/user_home.php");
+        }
+
+    }
+
     if(isset($_GET['request_id'])){
 
     $req_stmt = $conn->prepare("SELECT * FROM request_tbl WHERE request_id=?");
@@ -126,14 +138,7 @@
 
     $mail->send();
 
-        if(isset($_SESSION['admin_status']) && $_SESSION['admin_status'] == "Active") {
-            header("Location: admin/admin_request.php");
-        }
-
-        elseif(isset($_SESSION['user_status']) && $_SESSION['user_status'] == "Active") {
-            header("Location:user/user_request.php");
-        }
-
+        admin_or_emp();
 
     }
 

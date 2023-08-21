@@ -3,6 +3,9 @@
   include "../req_count.php";
   include "../db_connect.php";
 
+  #we will declare the default timezone to our timezone haha
+  date_default_timezone_set("Asia/Manila");
+
   if(isset($_SESSION['admin_status']) && $_SESSION['admin_status'] == "Active") {
 
 ?>
@@ -73,15 +76,15 @@
 
     <?php
       #select everything from the post table
-      $sql_post = mysqli_query($conn, "SELECT * FROM post_tbl P INNER JOIN emp_tbl E ON P.emp_id = E.emp_id");
+      $sql_post = mysqli_query($conn, "SELECT * FROM post_tbl P LEFT JOIN emp_tbl E ON P.emp_id = E.emp_id LEFT JOIN admin_tbl A ON P.admin_id = A.admin_id ORDER BY date_created ASC, time_created DESC");
       $post_row = mysqli_num_rows($sql_post);
     ?>
     
     <div class="home-div">
 
-      <div class="add-post">
+      <div class="add-post" id="create-button">
         <div class="top-post">
-          <img src="user_pics/__id_pic.jpg" alt="" class="profile-pic">
+          <img src="user_pics/__id_pic.jpg" alt="" class="profile-pic" id="create-button">
           <input type="text" placeholder="Create an Event" id="create-button">
         </div>
       </div>
@@ -96,47 +99,134 @@
             <h2>Create Post</h2>
           </div>
           <div class="create-body">
-            <img src="../user/requests/birth_certificate/<?= $row['birth_certificate'] ?>" alt="">
+            <form action="../add_post.php" class="create-form" method="post" enctype="multipart/form-data">
+              <textarea name="post-desc" id="post-desc" cols="30" rows="5" placeholder="Type the description of the event" class="post-desc"></textarea>
+              <div class="create-divs">
+                <label for="create-date" class="create-labels">Date of Event:</label>
+                <input type="date" class="create-input"id="create-date" name="post-date">
+              </div>
+
+              <div class="create-divs">
+                <label for="create-dime" class="create-labels">Time of Event:</label>
+                <input type="time" class="create-input"id="create-time" value="0:00" placeholder="0:00" name="post-time">
+              </div>
+
+              <div class="create-divs">
+                <label for="create-place" class="create-labels">Location of Event:</label>
+                <input type="text" class="create-input"id="create-place" placeholder="Location" name="post-loc">
+              </div>
+
+              <div class="create-divs">
+                <label for="create-place" class="create-labels">Type of Event:</label>
+                <select name="" id="create-select" class="create-input" name="type">
+                  <option value="" hidden>Type of Event</option>
+                  <option value="Recreational Event">Recreational Event</option>
+                </select>
+              </div>
+
+              <div class="create-divs">
+                <label for="create-place" class="create-labels">Upload an image:</label>
+                <input type="file" class="create-input"id="create-place" name="post-pics">
+              </div>
+
+              <div class="create-divs">
+                <input type="submit" value="Post">
+              </div>
+            </form>
           </div>
         </div> 
+
 
       </div>
 
       <?php
+        #if the post table has more than 0 rows this will run
         if($post_row > 0) {
           while($row = mysqli_fetch_array($sql_post)){
-
+            $post_id = $row['post_id'];
+            if(new DateTime() < new DateTime($row['post_date'] . $row['post_time'])){
       ?>
-
       <div class="post">
         <div class="title">
+            <?php
+            $new_format = new DateTime($row['date_created'] . $row['time_created']);
+              #if the date is before the date of the event the post will be displayed
+              #if the admin is the one who created the post, this will display
+              #you can tell if the employee posted when admin_id column is null
+              if(is_null($row['admin_id'])){
+            ?>
           <div class="post-profile">
-            <img src="user_pics/<?= $row['id_pic'] ?>" alt="" class="profile-pic">
+            <img src="user_pics/<?php $row['id_pic'] ?>" alt="" class="profile-pic">
           </div>
           <div class="who-post">
-            <h3 class="post-head"><?= $row['full_name'] ?></h3>
-            <p class="post-head"><?= $row['post_type'] ?></p>
+            <div class="title-date">
+              <h3 class="post-head"><?= $row['full_name'] ?></h3>
+              <span class="material-symbols-outlined">
+                more_horiz
+              </span>
+            </div>
+            <div class="type-date">
+              <p class="post-head"><?= $row['post_type'] . " . " . $row['post_date'] . " " . $row['post_time'] ?></p>
+            </div>
           </div>
+          <?php
+              }
+          #however if the emp was the one who created the post, this will display
+          #you can tell if the admin posted when emp_id column is null
+          elseif(is_null($row['emp_id'])){
+          ?>
+          <div class="who-post">
+            <div class="title-date">
+              <h3 class="post-head">Admin</h3>
+              <span class="material-symbols-outlined">
+                more_horiz
+              </span>
+            </div>
+            <div class="type-date">
+              <p class="post-head"><?= $row['post_type'] . " . " . $new_format->format("m/d/Y h:i")?> </p>
+            </div>
+          </div>
+          <?php
+          }
+          ?>
         </div>
 
         <div class="post-details">
           <p><?= $row['post_description'] ?></p>
         </div>
 
+        <?php
+          #if the posts contains the image, the image will be displayed
+          if(!is_null($row['post_pic'])){
+
+        ?>
         <div class="post-pic">
           <img src="../user/posts/post_pics/<?= $row['post_pic'] ?>" alt="" class="da-pic">
         </div>
+        <?php
+            }
+          #if the date passed the date of the event, the post will be removed and deleted from the table
+        ?>
       </div>
       <?php
-          }
         }
-
+        elseif(new DateTime() > new DateTime($row['post_date'] . $row['post_time'])){
+          $original_post = "../user/posts/post_pics/" . $row['post_pic'];
+          $deleted_post = "deleted/deleted_post_pics/" . $row['post_pic'];
+          rename($original_post, $deleted_post);
+          $remove_sql = $conn->prepare("DELETE FROM post_tbl WHERE post_id=?");
+          $remove_sql->bind_param("i", $post_id);
+          $remove_sql->execute();
+        }
+      }
+    }
+        #if there are no rows this will be displayed
         elseif($post_row == 0) {
 
       ?>
 
       <div class="no-posts">
-        there are no posts
+        <h1>There are no new posts</h1>
       </div>
 
       <?php
@@ -145,11 +235,43 @@
 
     </div>
 
-    <div class="right-div">
 
-      <h1>this is the right div</h1>
+    <div class="right-div-theme">
+      <h1>Choose your theme</h1>
+       
+      <div>
+        <label for="">Green:</label>
+        <input type="radio" name="theme" id="green" checked>
+      </div>
+
+      <div>
+        <label for="">Dark:</label>
+        <input type="radio" name="theme" id="dark">
+      </div>
+
+      <div>
+        <label for="">Purple:</label>
+        <input type="radio" name="theme" id="purple">
+      </div>
+
+      <div>
+        <label for="">Rusty Brown:</label>
+        <input type="radio" name="theme" id="brown">
+      </div>
+
+      <div>
+        <label for="">Violet:</label>
+        <input type="radio" name="theme" id="violet">
+      </div>
+
+      <div>
+        <label for="">WTF:</label>
+        <input type="radio" name="theme" id="wtf">
+      </div>
+      
 
     </div>
+
 
   </div>
   
@@ -182,6 +304,8 @@
         modal.style.display = "none";
       }
     }
+
+    
   </script>
 </html>
 <?php

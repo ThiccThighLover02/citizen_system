@@ -73,9 +73,8 @@
 
     <?php
     #Select all of the data in the senior table
-    $sql = mysqli_query($conn, "SELECT * FROM senior_tbl");
 
-    $row_sql = mysqli_query($conn, "SELECT * FROM senior_tbl");
+    $row_sql = mysqli_query($conn, "SELECT * FROM senior_log");
 
     $row_count = mysqli_num_rows($row_sql);
     ?>
@@ -102,26 +101,24 @@
         <thead class="table-head">
           <tr>
             <th>Senior No.</th>
-            <th>Status</th>
             <th>Name</th>
-            <th></th>
+            <th>Login</th>
+            <th>Logout</th>
           </tr>
         </thead>
         <tbody class="table-body">
           <?php
 
-            while($row = mysqli_fetch_array($sql)){
-              $birthday = $row['date_birth'];
-              $birthday = new DateTime($birthday);
-              $interval = $birthday->diff(new DateTime);
-              $age = $interval->y;
+            while($row = mysqli_fetch_array($row_sql)){
+              $date_in = new DateTime($row['login_date'] . $row['login_time']);
+              $date_out = new DateTime($row['out_date'] . $row['out_time']);
           
           ?>
           <tr>
             <td><?=str_pad($row['senior_id'], 6, '0', STR_PAD_LEFT); ?></td>
-            <td class="stats"><div class="<?= $row['status'] ?>"></div><?= $row['status'] ?> </td>
-            <td><?= $row['full_name'] ?></td>
-            <td><a href="admin_senior_acc.php?id=<?= $row['senior_id'] ?>"><input type="button" value="View details" class="view-button"></a></td>
+            <td><?= $row['login_name'] ?></td>
+            <td><?= $date_in->format("M d, Y . h:i:sa") ?></td>
+            <td><?= $date_out->format("M d, Y . h:i:sa") ?></td>
           </tr>
           <?php
           $disabled = "admin_senior_search.php";
@@ -138,29 +135,6 @@
 
     <div class="right-div">
 
-
-    <a href="<?= $disabled ?>" class="link" <?= $disabled ?>>
-      <button class="right-div-buttons" onclick="add_empFunction()">
-        <div class="right-div-button-div">
-          <span class="material-symbols-outlined" id="right-button">
-              search
-          </span>
-        </div>
-        <p class="right-p">Senior Search</p>
-      </button>
-      </a>
-
-      <a href="../create_senior.php?add_senior=true" class="link">
-      <button class="right-div-buttons" onclick="add_empFunction()">
-        <div class="right-div-button-div">
-          <span class="material-symbols-outlined" id="right-button">
-              person_add
-          </span>
-        </div>
-        <p class="right-p">Add senior</p>
-      </button>
-      </a>
-
       <a href="excel.php" class="link">
       <button class="right-div-buttons" onclick="excel_function()">
           <span class="material-symbols-outlined" id="right-button">
@@ -170,14 +144,14 @@
       </button>
       </a>
 
-      <a href="admin_senior_log.php" class="link">
+      <a href="admin_view_senior.php" class="link">
       <button class="right-div-buttons" onclick="logs_function()">
         <div class="right-div-button-div">
           <span class="material-symbols-outlined" id="right-button">
-              menu_book
+              arrow_back
           </span>
         </div>
-        <p class="right-p">Senior Logs</p>
+        <p class="right-p">Return to Table</p>
       </button>
       </a>
 
