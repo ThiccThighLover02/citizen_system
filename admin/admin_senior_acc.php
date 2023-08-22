@@ -76,9 +76,9 @@
     <?php
 
         #create a prepared statement to get the request details using the id
-        $stmt = $conn->prepare("SELECT * FROM senior_tbl S RIGHT JOIN purok_tbl P ON S.purok_id = P.purok_id
-        RIGHT JOIN barangay_tbl B ON S.barangay_id = B.barangay_id RIGHT JOIN municipality_tbl M ON S.municipality_id = M.municipality_id
-        RIGHT JOIN  province_tbl PR ON S.province_id = PR.province_id WHERE senior_id=?");
+        $stmt = $conn->prepare("SELECT * FROM senior_tbl S RIGHT JOIN purok_tbl P ON S.senior_purok_id = P.purok_id
+        RIGHT JOIN barangay_tbl B ON S.senior_barangay_id = B.barangay_id RIGHT JOIN municipality_tbl M ON S.senior_municipality_id = M.municipality_id
+        RIGHT JOIN  province_tbl PR ON S.senior_province_id = PR.province_id WHERE senior_id=?");
         $stmt->bind_param("i", $senior_id);
         $stmt->execute();
         $result = $stmt->get_result();
@@ -144,6 +144,15 @@
     </div>
 
     <div class="right-div">
+    <button class="right-div-buttons" onclick="printExternal('../id_layout.php?id=<?= $row['senior_id'] ?>')">
+        <div class="right-div-button-div">
+          <span class="material-symbols-outlined" id="right-button">
+              print
+          </span>
+        </div>
+        <p class="right-p">Print ID</p>
+      </button>
+
     <button class="right-div-buttons">
         <div class="right-div-button-div">
           <span class="material-symbols-outlined" id="right-button">
@@ -167,5 +176,15 @@
   
 
   </body>
+
+  <script>
+    function printExternal(url) {
+    var printWindow = window.open( url, 'Print', 'left=200, top=200, width=1600, height=900, toolbar=800, resizable=0');
+    printWindow.addEventListener('load', function(){
+        printWindow.print();
+        printWindow.close();
+    }, true);
+}
+  </script>
 
 </html>

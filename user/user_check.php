@@ -38,17 +38,15 @@ if (isset($_POST['email']) && isset($_POST['password'])){
 
         date_default_timezone_set("Asia/Manila");
 
-        $senior_id = $row['senior_id'];
+        $emp_id = $row['emp_id'];
         $full_name = $row['full_name'];
         $log_date = date("Y-m-d");
         $log_time = date("H:i:s");
         $session_no = random_int(100000, 999999);
 
-        /*
-        $stmt = $conn->prepare("INSERT INTO `emp_log` (`login_name`, `login_date`, `login_time`, `senior_id`, `session_no`) VALUES (?, ?, ?, ?, ?)");
-        $stmt->bind_param("sssii", $full_name, $log_date, $log_time, $senior_id, $session_no);
+        $stmt = $conn->prepare("INSERT INTO `emp_log` (`emp_id`, `login_date`, `login_time`, `session_no`) VALUES (?, ?, ?, ?)");
+        $stmt->bind_param("issi", $row['emp_id'], $log_date, $log_time, $session_no);
         $stmt->execute();
-        */
 
         if ($row['emp_email'] === $email && $row['emp_password'] === $pass) { //if the username and password is correct this code will run
 
@@ -64,7 +62,7 @@ if (isset($_POST['email']) && isset($_POST['password'])){
             $stmt->bind_param("si", $active, $row['emp_id']);
             $stmt->execute();
 
-            header("Location:user_home.php");
+           header("Location: user_home.php");
 
             exit();
 
@@ -73,7 +71,7 @@ if (isset($_POST['email']) && isset($_POST['password'])){
         else{
 
             
-            header("Location: login_page.php?error='$pass'"); //if the password is incorrect this will run
+            header("Location: user_login.php?error=true"); //if the password is incorrect this will run
             
 
             exit();
@@ -85,7 +83,7 @@ if (isset($_POST['email']) && isset($_POST['password'])){
     else{
 
         $em = "<script> alert('Account does not exist'); </script>";
-        header("Location: login_page.php?error='bruh'"); //if the password is incorrect this will run
+        header("Location: user_login.php?error=true"); //if the password is incorrect this will run
         exit();
 
     }

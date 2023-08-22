@@ -125,6 +125,18 @@
     ?>
 
     <div class="right-div">
+
+    <a href="search_emp.php" class="link">
+      <button class="right-div-buttons" onclick="search_empFunction()">
+        <div class="right-div-button-div">
+          <span class="material-symbols-outlined" id="right-button">
+              search
+          </span>
+        </div>
+        <p class="right-p">Search for user</p>
+      </button>
+      </a>
+
       <a href="create_emp.php" class="link">
       <button class="right-div-buttons" onclick="add_empFunction()">
         <div class="right-div-button-div">
@@ -133,17 +145,6 @@
           </span>
         </div>
         <p class="right-p">Add user</p>
-      </button>
-      </a>
-
-      <a href="create_emp.php" class="link">
-      <button class="right-div-buttons" onclick="search_empFunction()">
-        <div class="right-div-button-div">
-          <span class="material-symbols-outlined" id="right-button">
-              search
-          </span>
-        </div>
-        <p class="right-p">Search for user</p>
       </button>
       </a>
 

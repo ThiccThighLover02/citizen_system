@@ -16,6 +16,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Senior Home Page</title>
     <script src="admin_script.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Secular+One&display=swap" rel="stylesheet">
     <link rel="stylesheet" href ="../layout.css?v=<?php echo time(); ?>">
     
   </head>
@@ -76,7 +79,7 @@
 
     <?php
       #select everything from the post table
-      $sql_post = mysqli_query($conn, "SELECT * FROM post_tbl P LEFT JOIN emp_tbl E ON P.emp_id = E.emp_id LEFT JOIN admin_tbl A ON P.admin_id = A.admin_id ORDER BY date_created ASC, time_created DESC");
+      $sql_post = mysqli_query($conn, "SELECT * FROM post_tbl P LEFT JOIN emp_tbl E ON P.emp_id = E.emp_id LEFT JOIN admin_tbl A ON P.admin_id = A.admin_id INNER JOIN type_tbl T ON P.event_type_id = T.type_id ORDER BY date_created ASC, time_created DESC");
       $post_row = mysqli_num_rows($sql_post);
     ?>
     
@@ -99,7 +102,7 @@
             <h2>Create Post</h2>
           </div>
           <div class="create-body">
-            <form action="../add_post.php" class="create-form" method="post" enctype="multipart/form-data">
+            <form action="add_post.php" class="create-form" method="post" enctype="multipart/form-data">
               <textarea name="post-desc" id="post-desc" cols="30" rows="5" placeholder="Type the description of the event" class="post-desc"></textarea>
               <div class="create-divs">
                 <label for="create-date" class="create-labels">Date of Event:</label>
@@ -118,9 +121,12 @@
 
               <div class="create-divs">
                 <label for="create-place" class="create-labels">Type of Event:</label>
-                <select name="" id="create-select" class="create-input" name="type">
+                <select name="event-type" id="create-select" class="create-input">
                   <option value="" hidden>Type of Event</option>
-                  <option value="Recreational Event">Recreational Event</option>
+                  <option value="1">Recreational Event</option>
+                  <option value="2">Claim Pension</option>
+                  <option value="3">Health Related Event</option>
+                  <option value="4">Announcement</option>
                 </select>
               </div>
 
@@ -130,7 +136,7 @@
               </div>
 
               <div class="create-divs">
-                <input type="submit" value="Post">
+                <input type="submit" value="Post" id="submit-post">
               </div>
             </form>
           </div>
@@ -144,13 +150,19 @@
         if($post_row > 0) {
           while($row = mysqli_fetch_array($sql_post)){
             $post_id = $row['post_id'];
+            #if the post is before the due date of the event this will run
             if(new DateTime() < new DateTime($row['post_date'] . $row['post_time'])){
       ?>
       <div class="post">
         <div class="title">
             <?php
-            $new_format = new DateTime($row['date_created'] . $row['time_created']);
-              #if the date is before the date of the event the post will be displayed
+            #this is to convert the created time and date into string so that we can change the format of the date and time
+            $date_format = new DateTime($row['date_created']);
+            $time_format = new DateTime($row['time_created']);
+
+            #this is to convert the date of the event to string so that we can change the format of the date and time
+            $event_time = new DateTime($row['post_time']);
+            $event_date = new DateTime($row['post_date']);
               #if the admin is the one who created the post, this will display
               #you can tell if the employee posted when admin_id column is null
               if(is_null($row['admin_id'])){
@@ -166,7 +178,7 @@
               </span>
             </div>
             <div class="type-date">
-              <p class="post-head"><?= $row['post_type'] . " . " . $row['post_date'] . " " . $row['post_time'] ?></p>
+              <p class="post-head"><?= $row['type_name'] . " . " . $row['post_date'] . " " . $row['post_time'] ?></p>
             </div>
           </div>
           <?php
@@ -183,7 +195,7 @@
               </span>
             </div>
             <div class="type-date">
-              <p class="post-head"><?= $row['post_type'] . " . " . $new_format->format("m/d/Y h:i")?> </p>
+              <p class="post-head"><?= $row['type_name'] . " . Posted on: " . $date_format->format("m/d/Y") . " " .$time_format->format("h:ia")?> </p>
             </div>
           </div>
           <?php
@@ -192,6 +204,9 @@
         </div>
 
         <div class="post-details">
+          <p>When: <?= $event_date->format("M/d/Y ") . "at " . $event_time->format("h:ia") ?></p>
+          <p>Where: <?= $row['post_loc'] ?></p>
+          <br>
           <p><?= $row['post_description'] ?></p>
         </div>
 
@@ -211,9 +226,13 @@
       <?php
         }
         elseif(new DateTime() > new DateTime($row['post_date'] . $row['post_time'])){
-          $original_post = "../user/posts/post_pics/" . $row['post_pic'];
-          $deleted_post = "deleted/deleted_post_pics/" . $row['post_pic'];
-          rename($original_post, $deleted_post);
+
+          if(!is_null($row['post_pic'])){
+            $original_post = "../user/posts/post_pics/" . $row['post_pic'];
+            $deleted_post = "deleted/deleted_post_pics/" . $row['post_pic'];
+            rename($original_post, $deleted_post);
+          }
+          
           $remove_sql = $conn->prepare("DELETE FROM post_tbl WHERE post_id=?");
           $remove_sql->bind_param("i", $post_id);
           $remove_sql->execute();
@@ -235,7 +254,11 @@
 
     </div>
 
+    <div class="right-div">
+      <h1>this is a right div</h1>
+    </div>
 
+    <!--
     <div class="right-div-theme">
       <h1>Choose your theme</h1>
        
@@ -271,6 +294,7 @@
       
 
     </div>
+      -->
 
 
   </div>
@@ -287,6 +311,8 @@
 
     // Get the <span> element that closes the modal
     var span = document.getElementsByClassName("close")[0];
+
+  
 
     // When the user clicks on the button, open the modal
     btn.onclick = function() {

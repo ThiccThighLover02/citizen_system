@@ -144,6 +144,7 @@
         console.log(file_extension);
 
         if(file_extension != "jpg" && file_extension != "jpeg"){
+          alert("The file uploaded is not an image file");
           file_error.style.display = "block";
           console.log("This is not packing jpeg");
         }
@@ -154,25 +155,6 @@
         
       }
     })
-
-    birth.addEventListener("input", ()=>{
-      if(birth.files.length) {
-        let birth_extension = birth.files[0].name.split(".").pop();
-        console.log(birth_extension);
-
-        if(birth_extension != "jpg" && birth_extension != "jpeg"){
-          birth_error.style.display = "block";
-          console.log("This is not packing jpeg");
-        }
-
-        else {
-          birth_error.style.display = "none";
-        }
-        
-      }
-    })
-    
-    
 
   </script>
 </html>

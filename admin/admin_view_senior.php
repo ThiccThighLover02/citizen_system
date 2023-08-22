@@ -12,6 +12,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>View Seniors</title>
     <script src="admin_script.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Secular+One&display=swap" rel="stylesheet">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
     <link rel="stylesheet" href ="../layout.css?v=<?php echo time(); ?>">
     
@@ -150,7 +153,7 @@
       </button>
       </a>
 
-      <a href="../create_senior.php?add_senior=true" class="link">
+      <a href="create_senior.php?add_senior=true" class="link">
       <button class="right-div-buttons" onclick="add_empFunction()">
         <div class="right-div-button-div">
           <span class="material-symbols-outlined" id="right-button">
@@ -187,5 +190,13 @@
   
 
   </body>
+
+  <script>
+    <?php
+      if(isset($_GET['add_senior']) == "true"){
+        echo "alert('The senior has been added successfully');";
+      }
+    ?>
+  </script>
 
 </html>

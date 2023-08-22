@@ -189,7 +189,7 @@
       var search = $(this).val();
 
       $.ajax({
-        url:'text_jax.php',
+        url:'../senior_jax.php',
         method:'post',
         data:{query:search},
         success:function(response){

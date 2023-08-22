@@ -86,6 +86,7 @@
     ?>
 
     <div class="mid-div-requests">
+    
         <img src="../user/requests/id_pics/<?php echo $row['id_pic'] ?>" alt="" class="request-img">
 
         <div class="request-details">
@@ -132,7 +133,7 @@
                   <h2>Birth Certificate</h2>
                 </div>
                 <div class="modal-body">
-                  <img src="../user/requests/birth_certificate/<?= $row['birth_certificate'] ?>" alt="">
+                  <img src="../user/requests/birth_certificate/<?= $row['birth_certificate'] ?>" alt="" class="image-attach">
                 </div>
               </div> 
 

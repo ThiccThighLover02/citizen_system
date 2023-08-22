@@ -75,6 +75,8 @@
             <input type="text" class="input-fields" name="citizenship" placeholder="Citizenship" required> 
             <input type="text" class="input-fields" name="email" placeholder="Email" required>
             <input type="text" class="input-fields" name="cell_no" placeholder="Cellphone Number" required> 
+            <label for="emerg-contact" class="label-email">Emergency contact</label>
+            <input type="text" class="input-fields" name="cell_no" placeholder="Emergency Contact" required> 
         </div>
 
         <div>
@@ -137,31 +139,40 @@
   </body>
 
   <script>
-    //first we have to get the date input to calculate the age
-    let birth_input = document.getElementById("date-birth").value;
-    let birth_val = new Date(birth_input);
 
-    //well have to calculate the month difference first
-    let month_diff = Date.now() - birth_val;
-
-    // convert the calculated difference in date format
-    let age_dt = new Date(month_diff);
-
-    //extract year from date then calculate the age of the user
-    let year = age_dt.getUTCFullYear();
-    let age = Math.abs(year - 1970);
-    console.log(age);
-
-
-    let age_error = document.getElementById("age-error");
-    let file = document.getElementById("twobytwo");
-    let file_error = document.getElementById("pic-type-error");
-    let birth = document.getElementById("birth-certificate");
-    let birth_error = document.getElementById("birth-type-error");
+    const file = document.getElementById("twobytwo");
+    const file_error = document.getElementById("pic-type-error");
+    const birth = document.getElementById("birth-certificate");
+    const birth_error = document.getElementById("birth-type-error");
 
     //initialize the submit button so we can add an event listener
-    let submit_butt = document.getElementById("create-form");
-    let submit = document.getElementById("submit-button");
+    const submit_butt = document.getElementById("create-form");
+    const submit = document.getElementById("submit-button");
+
+    submit_butt.addEventListener("submit", (e)=>{
+
+
+      //first we have to get the date input to calculate the age
+      const birth_input = document.getElementById("date-birth").value;
+      const birth_val = new Date(birth_input);
+
+      //well have to calculate the month difference first
+      const month_diff = Date.now() - birth_val;
+
+      // convert the calculated difference in date format
+      const age_dt = new Date(month_diff);
+
+      //extract year from date then calculate the age of the user
+      const year = age_dt.getUTCFullYear();
+      const age = Math.abs(year - 1970);
+      console.log(age);
+
+      if(age < 60){
+        alert("You are less than 60 years old, you are not qualified to create an account");
+        e.preventDefault();
+      }
+    });
+    
 
     /*
     submit_butt.addEventListener("submit", function(event){
@@ -176,7 +187,7 @@
 
     file.addEventListener("input", ()=> {
       if(file.files.length) {
-        let file_extension = file.files[0].name.split(".").pop();
+        const file_extension = file.files[0].name.split(".").pop();
         console.log(file_extension);
 
         if(file_extension != "jpg" && file_extension != "jpeg"){
@@ -193,7 +204,7 @@
 
     birth.addEventListener("input", ()=>{
       if(birth.files.length) {
-        let birth_extension = birth.files[0].name.split(".").pop();
+        const birth_extension = birth.files[0].name.split(".").pop();
         console.log(birth_extension);
 
         if(birth_extension != "jpg" && birth_extension != "jpeg"){

@@ -45,10 +45,10 @@
     $civil_status = $row['civil_status'];
     $citizenship = $row['citizenship'];
     $cell_no = $row['cell_no'];
-    $purok = $row['purok_id'];
-    $barangay = $row['barangay_id'];
-    $municipality = $row['municipality_id'];
-    $province = $row['province_id'];
+    $purok = $row['senior_purok_id'];
+    $barangay = $row['senior_barangay_id'];
+    $municipality = $row['senior_municipality_id'];
+    $province = $row['senior_province_id'];
     $email = $row['senior_email'];
     $password = date("Y") . "-" . $random;
     $date_created = date("Y-m-d");
@@ -103,8 +103,8 @@
 
 
 
-    $stmt = $conn->prepare("INSERT INTO `senior_system`.`senior_tbl` (`status`, `full_name`, `first_name`, `mid_name`, `last_name`, `extension`, `date_birth`, `birth_place`, `sex`, `civil_status`, `citizenship`, `cell_no`, `purok_id`, `barangay_id`, `municipality_id`, `province_id`, `senior_email`, `senior_password`, `qr_image`, `id_pic`, `birth_certificate`, `account_time`, `account_date`, `qr_contents`) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);"); 
-    $stmt->bind_param("sssssssssssiiiiissssssss", $status, $full_name, $first_name, $middle_name, $last_name, $extension, $birth_date, $birth_place, $sex, $civil_status, $citizenship, $cell_no, $purok, $barangay, $municipality, $province, $email, $password, $fileName, $row['id_pic'], $row['birth_certificate'], $time_created, $date_created, $codeContents);
+    $stmt = $conn->prepare("INSERT INTO `senior_system`.`senior_tbl` (`status`, `full_name`, `first_name`, `mid_name`, `last_name`, `extension`, `date_birth`, `birth_place`, `age`, `sex`, `civil_status`, `citizenship`, `cell_no`, `senior_purok_id`, `senior_barangay_id`, `senior_municipality_id`, `senior_province_id`, `senior_email`, `senior_password`, `qr_image`, `id_pic`, `birth_certificate`, `account_time`, `account_date`, `qr_contents`) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);"); 
+    $stmt->bind_param("ssssssssssssiiiiissssssss", $status, $full_name, $first_name, $middle_name, $last_name, $extension, $birth_date, $birth_place, $age, $sex, $civil_status, $citizenship, $cell_no, $purok, $barangay, $municipality, $province, $email, $password, $fileName, $row['id_pic'], $row['birth_certificate'], $time_created, $date_created, $codeContents);
     $stmt->execute();
 
     $remove = $conn->prepare("DELETE FROM request_tbl WHERE request_id=?");
@@ -114,10 +114,10 @@
 
 
     $subject = "Account Approval";
-    $message = "Hello " . $firstN . " " . $lastN . ", your account has been approved. <br> You may proceed to the senior login page and enter the following credentials:<br>
+    $message = "Hello " . $first_name . " " . $last_name . ", your account has been approved. <br> You may proceed to the senior login page and enter the following credentials:<br>
 
     <h1>" . "Email: " . $email . "</h1> <br>
-    <h1>" . "Password: " . $senior_password . "</h1>" ;
+    <h1>" . "Password: " . $password . "</h1>" ;
 
     $mail = new PHPMailer(true);
 
@@ -142,7 +142,7 @@
 
     }
 
-    elseif(isset($_GET['add_senior'])) {
+    elseif(isset($_GET['add_senior']) == "true") {
 
 
     #declare all of the variables that we will use
@@ -172,12 +172,34 @@
     $account_time = date("H:i:s");
     $status = "Inactive";
    
-  #this will compute the seniors age
-  $birthday = $_POST['date_birth'];
+    #this will compute the seniors age
+    $birthday = $_POST['date_birth'];
 
-  $birthday = new DateTime($birthday);
-  $interval = $birthday->diff(new DateTime);
-  $age = $interval->y;
+    $birthday = new DateTime($birthday);
+    $interval = $birthday->diff(new DateTime);
+    $age = $interval->y;
+
+    include('phpqrcode/qrlib.php');
+    $tempDir = 'senior/senior_pics/qr_codes/';
+
+    $codeContents = uniqid("senior", true);
+
+    // we need to generate filename somehow, 
+    // with md5 or with database ID used to obtains $codeContents...
+    $fileName = uniqid() .  date("Ymd") .'.png';
+
+    $pngAbsoluteFilePath = $tempDir.$fileName;
+    $urlRelativeFilePath = $tempDir.$fileName;
+
+    // generating
+    
+    
+    if (!file_exists($pngAbsoluteFilePath)) {
+      QRcode::png($codeContents, $pngAbsoluteFilePath);
+    } else {
+        unlink($pngAbsoluteFilePath);
+        QRcode::png($codeContents, $pngAbsoluteFilePath);
+    }
    
 
 
@@ -201,7 +223,7 @@
         if(in_array($img_ex_lc, $allowed_exs)) {
           date_default_timezone_set("Asia/Manila");
           $new_id_name =$first_name . "_" . $middle_name . "_" . $last_name . "id_pic" . "." . $img_ex_lc;
-          $img_upload_path = 'user_pics/' . $new_id_name;
+          $img_upload_path = 'senior/senior_pics/id_pics/' . $new_id_name;
           move_uploaded_file($id_tmp_name, $img_upload_path);
             
             
@@ -212,21 +234,49 @@
     }
 }
 
+#this is for the birthcertificate
+$birth_cert = $_FILES['birth_certificate']['name'];
+$birth_size = $_FILES['birth_certificate']['size'];
+$birth_temp_name = $_FILES['birth_certificate']['tmp_name'];
+$birth_error = $_FILES['birth_certificate']['error'];
+if($birth_error === 0){
+ if ($birth_size > 16777215){
+  header("Location: create_acc.php?img_size=false"); #this will execute if the image size is too large
+ }
+
+ else {
+     $img_ex = pathinfo($birth_cert, PATHINFO_EXTENSION);
+     $img_ex_lc = strtolower($img_ex);
+
+     $allowed_exs = array("jpg", "jpeg", "png");
+
+     if(in_array($img_ex_lc, $allowed_exs)) {
+       date_default_timezone_set("Asia/Manila");
+       $new_birth_name =$first_name . "_" . $middle_name . "_" . $last_name . "birth_cert" . "." . $img_ex_lc;
+       $img_upload_path = 'senior/senior_pics/birth_certificates/' . $new_birth_name;
+       move_uploaded_file($birth_temp_name, $img_upload_path);
+         
+         
+     }
+     else{
+         header("Location: create_acc.php?img_ex=false"); #this will execute if the file is not a jpeg or png
+     }
+ }
+}
 
 
-    $stmt = $conn->prepare("INSERT INTO `senior_system`.`emp_tbl` (`status`, `first_name`, `middle_name`, `last_name`, `extension`, `full_name`, `birth_date`, `birth_place`, `age`, `sex`, `civil_status`, `citizenship`, `cell_no`, `purok_id`, `barangay_id`, `municipality_id`, `province_id`, `emp_email`, `emp_password`, `id_pic`, `account_time`, `account_date`) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);
-    "); 
-    $stmt->bind_param("ssssssssssssiiiiisssss", $status, $first_name, $middle_name, $last_name, $extension, $full_name, $birth_date, $birth_place, $age, $sex, $civil_stat, $citizenship, $cell_no, $purok, $barangay, $municipality, $province, $email, $password, $new_id_name, $account_time, $account_date);
-    $stmt->execute();
+
+$stmt = $conn->prepare("INSERT INTO `senior_system`.`senior_tbl` (`status`, `full_name`, `first_name`, `mid_name`, `last_name`, `extension`, `date_birth`, `birth_place`, `age`, `sex`, `civil_status`, `citizenship`, `cell_no`, `senior_purok_id`, `senior_barangay_id`, `senior_municipality_id`, `senior_province_id`, `senior_email`, `senior_password`, `qr_image`, `id_pic`, `birth_certificate`, `account_time`, `account_date`, `qr_contents`) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);"); 
+$stmt->bind_param("ssssssssssssiiiiissssssss", $status, $full_name, $first_name, $middle_name, $last_name, $extension, $birth_date, $birth_place, $age, $sex, $civil_stat, $citizenship, $cell_no, $purok, $barangay, $municipality, $province, $email, $password, $fileName, $new_id_name, $new_birth_name, $account_time, $account_date, $codeContents);
+$stmt->execute();
 
     if(isset($_SESSION["admin_status"]) && $_SESSION['admin_status'] == "Active") {
-        header("Location: admin/admin_view_senior.php");
+        header("Location: admin/admin_view_senior.php?add_senior=true");
     }
 
-    elseif(isset($_SESSION['user_status']) && $_SESSION['user_status'] == "Active") {
-        header("Location: user/user_view_senior.php");
+    elseif(isset($_SESSION['emp_status']) && $_SESSION['emp_status'] == "Active"){
+        header("Location: user/user_view_senior.php?add_senior=true");
     }
-
 }
 
 ?>

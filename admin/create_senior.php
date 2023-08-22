@@ -1,5 +1,6 @@
 <?php
-  include("db_connect.php");
+  include("../db_connect.php");
+  session_start();
 ?>
 
 <!doctype html>
@@ -8,14 +9,13 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Senior Login Page</title>
-    <link rel="stylesheet" href ="senior/create.css?v=<?php echo time(); ?>">
+    <link rel="stylesheet" href ="../senior/create.css?v=<?php echo time(); ?>">
     
   </head>
   <body class="bruh">
     
     <div class="login_form">
-
-      <a href="admin/admin_view_senior.php">
+      <a href="admin_view_senior.php">
         <span class="material-symbols-outlined">
           arrow_back
         </span>
@@ -23,7 +23,7 @@
 
       <h2 class="login_header">Create Account</h2>
 
-      <form action="add_senior.php?add_senior=true" method="post" class="login_info" enctype="multipart/form-data">
+      <form action="add_senior.php?add_senior=true" method="post" class="login_info" enctype="multipart/form-data" id="create-form">
 
         <!-- Full Name -->
         <div>
@@ -34,6 +34,7 @@
             <select name="extension" id="" class="input-fields">
               <option value="Extension" hidden>Extension</option>
               <option value="">None</option>
+              <option value="Jr.">Jr.</option>
               <option value="I">I</option>
               <option value="II">II</option>
               <option value="III">II</option>
@@ -45,7 +46,7 @@
         <!--Date of Birth and Place of birth-->
         <div>
             <label for="" class="label-email" >Date of Birth:</label>
-            <input type="date" class="input-fields" name="date_birth" placeholder="" required>
+            <input type="date" class="input-fields" name="date_birth" placeholder="" id="date-birth" required>
             <p class="age-error">You have to be 60 years and older to request for an account</p> 
         </div>
 
@@ -129,7 +130,7 @@
 
         
 
-        <input type="submit" value="Send Request" class="submit-button">
+        <input type="submit" value="Send Request" class="submit-button" id="submit">
 
       </form>
 
@@ -143,6 +144,35 @@
     let file_error = document.getElementById("pic-type-error");
     let birth = document.getElementById("birth-certificate");
     let birth_error = document.getElementById("birth-type-error");
+    const submit_butt = document.getElementById("create-form");
+
+    submit_butt.addEventListener("submit", (e)=>{
+
+
+      //first we have to get the date input to calculate the age
+      const birth_input = document.getElementById("date-birth").value;
+      const birth_val = new Date(birth_input);
+
+      //well have to calculate the month difference first
+      const month_diff = Date.now() - birth_val;
+
+      // convert the calculated difference in date format
+      const age_dt = new Date(month_diff);
+
+      //extract year from date then calculate the age of the user
+      const year = age_dt.getUTCFullYear();
+      const age = Math.abs(year - 1970);
+      console.log(age);
+
+      if(age < 60){
+        alert("You are less than 60 years old, you are not qualified to create an account");
+        e.preventDefault();
+      }
+
+      if(confirm("Do you want to add this senior?") == false){
+        e.preventDefault();
+      }
+    });
 
     file.addEventListener("input", ()=> {
       if(file.files.length) {
@@ -159,7 +189,7 @@
         }
         
       }
-    })
+    });
 
     birth.addEventListener("input", ()=>{
       if(birth.files.length) {

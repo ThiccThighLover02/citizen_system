@@ -346,18 +346,32 @@ body {
     margin-top: 15px;
 }
 
+.image-attach {
+    width: 100%;
+}
+
 .in-mid {
     align-items: center;
     display: flex;
     height: 10vh;
-    justify-content: space-around;
+    justify-content: space-evenly;
     width: 100%;
     border-bottom: 2px solid var(--secondary);
 }
 
+
 .in-mid h3{
     font-family: sans-serif;
     font-size: 18px;
+}
+
+.in-mid-events {
+    align-items: center;
+    display: flex;
+    height: 10vh;
+    justify-content: space-evenly;
+    width: 100%;
+    border-bottom: 2px solid var(--secondary);
 }
 
 .home-div {
@@ -400,7 +414,13 @@ body {
     box-shadow: rgba(255, 255, 255, 0.1) 0px 1px 1px 0px inset, rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px;
     height: 84.5vh;
     overflow: overlay;
+    text-align: center;
     width: 50vw;
+}
+
+.mid-div h1{
+    font-family: sans-serif;
+    margin: 15px none;
 }
 
 .mid-div-empty {
@@ -521,8 +541,11 @@ body {
     }
 
 .no-posts {
+    align-items: center;
     background-color: var(--background);
-    height: 80%;
+    border-radius: 15px;
+    display: flex;
+    height: 10%;
     justify-content: center;
     text-align: center;
 }
@@ -572,7 +595,7 @@ body {
     display: grid;
     gap: 1rem;
     grid-template-columns: auto auto;
-    padding: 15px;
+    padding: 5px;
     width: 90%;
 }
 
@@ -807,7 +830,9 @@ body {
 
 .top-nav {
     align-items: center;
+    color: var(--background);
     display: flex;
+    font-family: 'Secular One', sans-serif;
     height: 8vh;
     padding: 0px 15px 0px 15px;
     width: 100vw;

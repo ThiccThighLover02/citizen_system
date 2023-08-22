@@ -19,7 +19,7 @@ function scan_function(){
 }
 
 function logout_function(){
-    window.location.href="../logout.php";
+    window.location.href="../admin_logout.php";
 }
 
 

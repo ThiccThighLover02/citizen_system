@@ -50,6 +50,25 @@ CREATE TABLE `barangay_tbl` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
+-- Table structure for table `emp_log`
+--
+
+DROP TABLE IF EXISTS `emp_log`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `emp_log` (
+  `log_id` int NOT NULL AUTO_INCREMENT,
+  `emp_id` int NOT NULL,
+  `login_date` date DEFAULT NULL,
+  `login_time` time DEFAULT NULL,
+  `out_date` date DEFAULT NULL,
+  `out_time` time DEFAULT NULL,
+  `session_no` varchar(155) DEFAULT NULL,
+  PRIMARY KEY (`log_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
 -- Table structure for table `emp_tbl`
 --
 
@@ -89,7 +108,30 @@ CREATE TABLE `emp_tbl` (
   CONSTRAINT `municipality_id` FOREIGN KEY (`municipality_id`) REFERENCES `municipality_tbl` (`municipality_id`),
   CONSTRAINT `province_id` FOREIGN KEY (`province_id`) REFERENCES `province_tbl` (`province_id`),
   CONSTRAINT `purok_id` FOREIGN KEY (`purok_id`) REFERENCES `purok_tbl` (`purok_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Table structure for table `event_tbl`
+--
+
+DROP TABLE IF EXISTS `event_tbl`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `event_tbl` (
+  `event_id` int NOT NULL AUTO_INCREMENT,
+  `type_id` int NOT NULL,
+  `event_date` varchar(155) DEFAULT NULL,
+  `event_time` varchar(155) DEFAULT NULL,
+  `senior_id` int NOT NULL,
+  `attend_event` varchar(155) DEFAULT NULL,
+  `claim_event` varchar(155) DEFAULT NULL,
+  PRIMARY KEY (`event_id`),
+  KEY `type_id_idx` (`type_id`),
+  KEY `senior_id_idx` (`senior_id`),
+  CONSTRAINT `senior_id` FOREIGN KEY (`senior_id`) REFERENCES `senior_tbl` (`senior_id`),
+  CONSTRAINT `type_id` FOREIGN KEY (`type_id`) REFERENCES `type_tbl` (`type_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -122,6 +164,35 @@ CREATE TABLE `municipality_tbl` (
   `municipality_name` varchar(100) NOT NULL,
   PRIMARY KEY (`municipality_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Table structure for table `post_tbl`
+--
+
+DROP TABLE IF EXISTS `post_tbl`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `post_tbl` (
+  `post_id` int NOT NULL AUTO_INCREMENT,
+  `emp_id` int DEFAULT NULL,
+  `admin_id` int DEFAULT NULL,
+  `event_type_id` int NOT NULL,
+  `post_description` varchar(500) DEFAULT NULL,
+  `post_pic` varchar(255) DEFAULT NULL,
+  `post_date` date NOT NULL,
+  `post_time` time NOT NULL,
+  `date_created` date NOT NULL,
+  `time_created` time NOT NULL,
+  `post_loc` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`post_id`),
+  KEY `emp_id_idx` (`emp_id`),
+  KEY `admin_id_idx` (`admin_id`),
+  KEY `type_id_idx` (`event_type_id`),
+  CONSTRAINT `admin_id` FOREIGN KEY (`admin_id`) REFERENCES `admin_tbl` (`admin_id`),
+  CONSTRAINT `emp_id` FOREIGN KEY (`emp_id`) REFERENCES `emp_tbl` (`emp_id`),
+  CONSTRAINT `event_type_id` FOREIGN KEY (`event_type_id`) REFERENCES `type_tbl` (`type_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=35 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -186,7 +257,7 @@ CREATE TABLE `request_tbl` (
   KEY `barangay_id_idx` (`barangay_id`),
   KEY `municipality_id_idx` (`municipality_id`),
   KEY `province_id_idx` (`province_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -206,7 +277,7 @@ CREATE TABLE `senior_log` (
   `senior_id` int NOT NULL,
   `session_no` varchar(100) NOT NULL,
   PRIMARY KEY (`log_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -226,14 +297,15 @@ CREATE TABLE `senior_tbl` (
   `extension` varchar(100) DEFAULT NULL,
   `date_birth` date NOT NULL,
   `birth_place` varchar(100) NOT NULL,
+  `age` varchar(100) NOT NULL,
   `sex` varchar(50) NOT NULL,
   `civil_status` varchar(100) NOT NULL,
   `citizenship` varchar(100) NOT NULL,
   `cell_no` bigint NOT NULL,
-  `purok_id` int NOT NULL,
-  `barangay_id` int NOT NULL,
-  `municipality_id` int NOT NULL,
-  `province_id` int NOT NULL,
+  `senior_purok_id` int NOT NULL,
+  `senior_barangay_id` int NOT NULL,
+  `senior_municipality_id` int NOT NULL,
+  `senior_province_id` int NOT NULL,
   `senior_email` varchar(255) NOT NULL,
   `senior_password` varchar(255) NOT NULL,
   `qr_image` varchar(255) NOT NULL,
@@ -242,8 +314,30 @@ CREATE TABLE `senior_tbl` (
   `account_time` time NOT NULL,
   `account_date` date NOT NULL,
   `qr_contents` varchar(255) DEFAULT NULL,
-  PRIMARY KEY (`senior_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  PRIMARY KEY (`senior_id`),
+  KEY `purok_id_idx` (`senior_purok_id`),
+  KEY `senior_barangay_id_idx` (`senior_barangay_id`),
+  KEY `senior_municipality_id_idx` (`senior_municipality_id`),
+  KEY `senior_province_id_idx` (`senior_province_id`),
+  CONSTRAINT `senior_barangay_id` FOREIGN KEY (`senior_barangay_id`) REFERENCES `barangay_tbl` (`barangay_id`),
+  CONSTRAINT `senior_municipality_id` FOREIGN KEY (`senior_municipality_id`) REFERENCES `municipality_tbl` (`municipality_id`),
+  CONSTRAINT `senior_province_id` FOREIGN KEY (`senior_province_id`) REFERENCES `province_tbl` (`province_id`),
+  CONSTRAINT `senior_purok_id` FOREIGN KEY (`senior_purok_id`) REFERENCES `purok_tbl` (`purok_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Table structure for table `type_tbl`
+--
+
+DROP TABLE IF EXISTS `type_tbl`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `type_tbl` (
+  `type_id` int NOT NULL AUTO_INCREMENT,
+  `type_name` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`type_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -255,4 +349,4 @@ CREATE TABLE `senior_tbl` (
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-08-12  8:47:44
+-- Dump completed on 2023-08-22 18:04:09

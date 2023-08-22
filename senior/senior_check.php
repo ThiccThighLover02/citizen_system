@@ -87,7 +87,7 @@ if (isset($_POST['email']) && isset($_POST['password'])){
     else{
 
         $em = "<script> alert('Account does not exist'); </script>";
-        header("Location: login_page.php?error='bruh'"); //if the password is incorrect this will run
+        header("Location: senior_login.php?error='bruh'"); //if the password is incorrect this will run
         exit();
 
     }

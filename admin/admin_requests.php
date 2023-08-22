@@ -71,7 +71,7 @@
     </div>
     
     <?php
-      $sql = mysqli_query($conn, "SELECT * FROM request_tbl");
+      $sql = mysqli_query($conn, "SELECT * FROM request_tbl ORDER BY request_date DESC, request_time ASC");
 
     ?>
 
@@ -82,11 +82,19 @@
       <?php
       while($row = mysqli_fetch_array($sql)){
 
+        $date_format = new DateTime($row['request_date'] . $row['request_time']);
+
       ?>
       <div class="in-mid">
-      <a href="admin_view_requests.php?request_id=<?php echo $row['request_id']; ?>"><input type="button" value="View Request" class="view-button"></a>
-      <h3 class="request-head"><?php echo $row['first_name'] . " " . $row['middle_name'] . " " . $row['last_name'] . " is requesting for an account" ?></h3>
-      <h3 class="request-head"><?php echo $row['request_date'] . "/" . $row['request_time']; ?></h3>
+        <div>
+          <a href="admin_view_requests.php?request_id=<?php echo $row['request_id']; ?>"><input type="button" value="View Request" class="view-button"></a>
+        </div>
+        <div>
+          <h3 class="request-head"><?php echo $row['first_name'] . " " . $row['last_name'] . " is requesting for an account" ?></h3>
+        </div>
+        <div>
+          <h3 class="request-head"><?= $date_format->format("M-d-Y / h:ia") ?></h3>
+        </div>
       </div>
 
       <?php
