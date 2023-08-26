@@ -23,6 +23,9 @@
     
   </head>
   <body class="background">
+  <div class="loader">
+
+  </div>
   <div class="top-nav">
     <h1>Senior Citizen System</h1>
   </div>
@@ -303,6 +306,11 @@
   </body>
 
   <script>
+
+window.addEventListener('load', ()=>{
+    document.querySelector(".loader").classList.add("loader--hidden");
+});
+
         // Get the modal
     var modal = document.getElementById("postModal");
 

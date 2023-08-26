@@ -145,7 +145,7 @@
         <p class="right-p">Print ID</p>
       </button>
 
-    <button class="right-div-buttons">
+    <button class="right-div-buttons" onclick="delete_senior()">
         <div class="right-div-button-div">
           <span class="material-symbols-outlined" id="right-button">
               delete
@@ -153,6 +153,8 @@
         </div>
         <p class="right-p">Delete Senior</p>
       </button>
+
+      
 
       <button class="right-div-buttons" onclick="senior_function()">
         <div class="right-div-button-div">
@@ -177,6 +179,16 @@
 
     // Get the <span> element that closes the modal
     var span = document.getElementsByClassName("close")[0];
+
+    function delete_senior(e) {
+      if(confirm("Do you want to delete this senior?") == true){
+        window.location.href="delete_senior.php?id=<?= $row['senior_id'] ?>";
+      }
+
+      else{
+        e.preventDefault();
+      }
+  } 
 
   
 

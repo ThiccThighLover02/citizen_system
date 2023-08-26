@@ -2,75 +2,75 @@
 @import url('https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200');
 
 :root {
-  /* original green
-  --primary-green: #3cd36e;
-  --secondary-green: #b0edc4;
-  --accent-green: #27aa53;
-  --text-green: #082110;
-  --background-green: #def7e6;
+  /* original
+  --primary: #3cd36e;
+  --secondary: #b0edc4;
+  --accent: #27aa53;
+  --text: #082110;
+  --background: #def7e6;
   --gradient-background: linear-gradient(to right top, #3cd36e, #5fda85, #7ce19b, #96e7b0, #b0edc4);
   */
 
-  --primary-green: #70191c;
-  --secondary-green: #f4f2cd;
-  --accent-green: #c82d32;
-  --text-green: #082524;
-  --background-green: #eefbfb;
+  --primary: #70191c;
+  --secondary: #f4f2cd;
+  --accent: #c82d32;
+  --text: #082524;
+  --background: #eefbfb;
   --gradient-background: linear-gradient(to right top, #70191c, #935236, #b3875d, #d2bc91, #f4f2cd);
 
 
   /*
-  --primary-green: #0a8a50;
-  --secondary-green: #c1fbe1;
-  --accent-green: #10e082;
-  --text-green: #010e08;
-  --background-green: #d4fcea;
+  --primary: #0a8a50;
+  --secondary: #c1fbe1;
+  --accent: #10e082;
+  --text: #010e08;
+  --background: #d4fcea;
   --gradient-background: linear-gradient(to left bottom, #0a8a50, #45a674, #6fc298, #97debc, #c1fbe1);
   */
 
   /* dark purple woah
-  --primary-green: #4f2754;
-  --secondary-green: #dfb9d0;
-  --accent-green: #8c406e;
-  --text-green: #181023;
-  --background-green: #f1eef7;
+  --primary: #4f2754;
+  --secondary: #dfb9d0;
+  --accent: #8c406e;
+  --text: #181023;
+  --background: #f1eef7;
   --gradient-background: linear-gradient(to left bottom, #4f2754, #724870, #966c8f, #bb92ae, #dfb9d0);
   */
   
   /* purple? i guess? 
-  --primary-green: #a62671;
-  --secondary-green: #efb8bd;
-  --accent-green: #a729b3;
-  --text-green: #000000;
-  --background-green: #eefbf4;
+  --primary: #a62671;
+  --secondary: #efb8bd;
+  --accent: #a729b3;
+  --text: #000000;
+  --background: #eefbf4;
   --gradient-background: linear-gradient(to right top, #a62671, #bc4f7e, #d0728f, #e095a4, #efb8bd);
   */
 
   /*kinda like this black? not sure if it's good for seniors tho
-  --primary-green: #383335;
-  --secondary-green: #d6d1d4;
-  --accent-green: #73686d;
-  --text-green: #100f0f;
-  --background-green: #f0eff0;
+  --primary: #383335;
+  --secondary: #d6d1d4;
+  --accent: #73686d;
+  --text: #100f0f;
+  --background: #f0eff0;
   --gradient-background: linear-gradient(to right top, #383335, #5c5759, #837d80, #aba6a9, #d6d1d4);
   */
   
    /*nah i don't like this color
-  --primary-green: #8fb3ff;
-  --secondary-green: #ebf1ff;
-  --accent-green: #d41d6d;
-  --text-green: #000000;
-  --background-green: #ffffff;
+  --primary: #8fb3ff;
+  --secondary: #ebf1ff;
+  --accent: #d41d6d;
+  --text: #000000;
+  --background: #ffffff;
   --gradient-background: linear-gradient(to right top, #8fb3ff, #a7c2ff, #bed2ff, #d5e1ff, #ebf1ff);
   */
   
   
   /* i like this rusty brown color
-  --primary-green: #cd6437;
-  --secondary-green: #f2d6ca;
-  --accent-green: #c05b30;
-  --text-green: #251109;
-  --background-green: #f7e6de;
+  --primary: #cd6437;
+  --secondary: #f2d6ca;
+  --accent: #c05b30;
+  --text: #251109;
+  --background: #f7e6de;
   --gradient-background: linear-gradient(to right top, #cd6437, #da815a, #e49d7e, #ecb9a3, #f2d6ca);
   */
   
@@ -148,9 +148,37 @@
 
 }
 
+.loader {
+  align-items: center;
+  background-color: var(--primary);
+  display: flex;
+  height: 50vh;
+  justify-content: center;
+  left: 50vw;
+  position: fixed;
+  top: 26vh;
+  transition: opacity 0.75s, visibility 0.75s;
+  width: 50vh;
+}
+
+.loader::after {
+  border: 15px solid var(--secondary);
+  border-radius: 50%;
+  border-top-color: var(--background);
+  content: "";
+  height:75px;
+  width: 75px;
+  animation: loading 0.75s ease infinite;
+}
+
+.loader--hidden {
+  opacity: 0;
+  visibility: hidden;
+}
+
 .login_form {
     
-  background-color: var(--secondary-green);
+  background-color: var(--secondary);
   border-radius: 8px;
   min-height: 10vh;
   max-width: 80vw;
@@ -376,4 +404,9 @@ option {
     margin-bottom: 3%;
 
   }
+}
+
+@keyframes loading {
+  from {transform: rotate(0turn)}
+  to {transform: rotate(1turn)}
 }

@@ -31,6 +31,7 @@ function add_empFunction() {
     window.location.href="create_emp.php";
 }
 
+
 //this is for the theme selection
 
 const colorThemes = document.querySelectorAll('[name="theme"]');

@@ -13,3 +13,7 @@ function request_function() {
 function EventFunction(){
     window.location.href="user_events.php";
 }
+
+function logs_function() {
+    window.location.href="user_senior_log.php";
+}

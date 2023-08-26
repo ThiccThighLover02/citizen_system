@@ -164,14 +164,18 @@
       const age = Math.abs(year - 1970);
       console.log(age);
 
-      if(age < 60){
+      if(confirm("Do you want to add this senior?") == true){
+        if(age < 60){
         alert("You are less than 60 years old, you are not qualified to create an account");
+        e.preventDefault();
+        }
+
+      }
+
+      else{
         e.preventDefault();
       }
 
-      if(confirm("Do you want to add this senior?") == false){
-        e.preventDefault();
-      }
     });
 
     file.addEventListener("input", ()=> {

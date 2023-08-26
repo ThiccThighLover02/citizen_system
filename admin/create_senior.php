@@ -13,6 +13,10 @@
     
   </head>
   <body class="bruh">
+
+    <div class="loader">
+
+    </div>
     
     <div class="login_form">
       <a href="admin_view_senior.php">
@@ -139,6 +143,10 @@
   </body>
 
   <script>
+
+window.addEventListener('load', ()=>{
+    document.querySelector(".loader").classList.add("loader--hidden");
+});
     
     let file = document.getElementById("twobytwo");
     let file_error = document.getElementById("pic-type-error");
@@ -164,12 +172,20 @@
       const age = Math.abs(year - 1970);
       console.log(age);
 
-      if(age < 60){
+      if(confirm("Do you want to add this senior?")){
+        if(age < 60){
         alert("You are less than 60 years old, you are not qualified to create an account");
         e.preventDefault();
+        }
+
+        window.addEventListener('load', ()=>{
+          document.querySelector(".loader").classList.add("loader--hiddern");
+        });
+
+
       }
 
-      if(confirm("Do you want to add this senior?") == false){
+      else{
         e.preventDefault();
       }
     });

@@ -1,5 +1,5 @@
 <?php
-    include '../db_connect.php';
+    include 'db_connect.php';
     date_default_timezone_set("Asia/Manila");
     $back_file = date("Y-m-d-H-i-s");
     $file_path = 'C:/ProgramData/MySQL/MySQL Server 8.0/Uploads/' . $back_file . ".csv";
@@ -7,7 +7,7 @@
     $terminate_by = '\n';
 
     if(!file_exists($file_path)){
-        $sql = mysqli_query($conn, "SELECT 'status', 'full_name', 'senior_id','first_name','mid_name','last_name','extension','date_birth','birth_place', 'sex','civil_status','citizenship','cell_no','purok_id','barangay_id','municipality_id','province_id','senior_email','senior_password','qr_image', 'id_pic', 'birth_certificate', 'account_time','account_date','qr_contents'
+        $sql = mysqli_query($conn, "SELECT 'status', 'full_name', 'senior_id','first_name','mid_name','last_name','extension','date_birth','birth_place', 'sex','civil_status','citizenship','cell_no', 'age', 'senior_purok_id', 'senior_barangay_id','senior_municipality_id','senior_province_id','senior_email','senior_password','qr_image', 'id_pic', 'birth_certificate', 'account_time','account_date','qr_contents'
         UNION ALL
         SELECT * FROM senior_tbl INTO OUTFILE '$file_path' FIELDS TERMINATED BY ',' ENCLOSED BY '$enclose_by' LINES TERMINATED BY '$terminate_by'
         ");
@@ -15,7 +15,7 @@
     }
 
     else {
-        $sql = mysqli_query($conn, "SELECT 'status', 'full_name', 'senior_id','first_name','mid_name','last_name','extension','date_birth','birth_place', 'sex','civil_status','citizenship','cell_no','purok_id','barangay_id','municipality_id','province_id','senior_email','senior_password','qr_image', 'id_pic', 'birth_certificate', 'account_time','account_date','qr_contents'
+        $sql = mysqli_query($conn, "SELECT 'status', 'full_name', 'senior_id','first_name','mid_name','last_name','extension','date_birth','birth_place', 'sex','civil_status','citizenship','cell_no', 'age', 'senior_purok_id','senior_barangay_id','senior_municipality_id','senior_province_id','senior_email','senior_password','qr_image', 'id_pic', 'birth_certificate', 'account_time','account_date','qr_contents'
         UNION ALL
         SELECT * FROM senior_tbl INTO OUTFILE '$file_path' FIELDS TERMINATED BY ',' ENCLOSED BY '$enclose_by' LINES TERMINATED BY '$terminate_by'
         ");
@@ -27,10 +27,10 @@
  
 // Fetch records from database 
 $sql = mysqli_query($conn, "SELECT * FROM senior_tbl S RIGHT JOIN purok_tbl P
-ON S.purok_id = P.purok_id RIGHT JOIN barangay_tbl B 
-ON S.barangay_id = B.barangay_id RIGHT JOIN municipality_tbl M 
-ON S.municipality_id = M.municipality_id RIGHT JOIN province_tbl Pr 
-ON S.province_id = Pr.province_id");
+ON S.senior_purok_id = P.purok_id RIGHT JOIN barangay_tbl B 
+ON S.senior_barangay_id = B.barangay_id RIGHT JOIN municipality_tbl M 
+ON S.senior_municipality_id = M.municipality_id RIGHT JOIN province_tbl Pr 
+ON S.senior_province_id = Pr.province_id");
 
 
 

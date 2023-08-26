@@ -153,7 +153,7 @@
       </button>
       </a>
 
-      <a href="create_senior.php?add_senior=true" class="link">
+      <a href="create_senior.php" class="link">
       <button class="right-div-buttons" onclick="add_empFunction()">
         <div class="right-div-button-div">
           <span class="material-symbols-outlined" id="right-button">
@@ -164,7 +164,7 @@
       </button>
       </a>
 
-      <a href="excel.php" class="link">
+      <a href="../excel.php" class="link">
       <button class="right-div-buttons" onclick="excel_function()">
           <span class="material-symbols-outlined" id="right-button">
               download

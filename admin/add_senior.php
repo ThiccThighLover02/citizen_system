@@ -7,17 +7,8 @@
     require '../vendor/phpmailer/phpMailer/src/SMTP.php';
     include "../db_connect.php";
 
-    function admin_or_emp(){
+    if(isset($_SESSION['admin_status']) && $_SESSION['admin_status'] == "Active"){
 
-        if(isset($_SESSION['admin_status']) && $_SESSION['admin_status'] == "Active"){
-            header("Location: admin/admin_home.php");
-        }
-
-        elseif(isset($_SESSION['emp_status']) && $_SESSION['emp_status'] == "Active") {
-            header("Location: user/user_home.php");
-        }
-
-    }
 
     if(isset($_GET['request_id'])){
 
@@ -138,7 +129,7 @@
 
     $mail->send();
 
-    header("Location: user_requests.php?add_senior='true'");
+    header("Location: admin_requests.php?add_senior='true'");
 
     }
 
@@ -270,8 +261,10 @@ $stmt = $conn->prepare("INSERT INTO `senior_system`.`senior_tbl` (`status`, `ful
 $stmt->bind_param("ssssssssssssiiiiissssssss", $status, $full_name, $first_name, $middle_name, $last_name, $extension, $birth_date, $birth_place, $age, $sex, $civil_stat, $citizenship, $cell_no, $purok, $barangay, $municipality, $province, $email, $password, $fileName, $new_id_name, $new_birth_name, $account_time, $account_date, $codeContents);
 $stmt->execute();
 
-header("Location: user_view_senior.php?add_senior='true'");
+header("Location: admin_view_senior.php?add_senior='true'");
 
 }
 
+
+}
 ?>

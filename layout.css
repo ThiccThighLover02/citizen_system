@@ -318,6 +318,35 @@ body {
     text-decoration: none;
 }
 
+.loader {
+    align-items: center;
+    background-color: var(--primary);
+    border-radius: 15px;
+    display: flex;
+    height: 50vh;
+    justify-content: center;
+    left: 38vw;
+    position: fixed;
+    top: 24vh;
+    transition: opacity 0.75s, visibility 0.75s;
+    width: 50vh;
+}
+
+.loader::after {
+    border: 15px solid var(--secondary);
+    border-radius: 50%;
+    border-top-color: var(--background);
+    content: "";
+    height:75px;
+    width: 75px;
+    animation: loading 0.75s ease infinite;
+}
+
+.loader--hidden {
+    opacity: 0;
+    visibility: hidden;
+}
+
 .logout-button {
     border: none;
     background: transparent;
@@ -906,6 +935,11 @@ body {
   }
 
 @keyframes bounce { 0%, 100% { top: 0; } 30% { top: 20px; } 50% { top: 10px; } 80% { top: 20px; } }
+
+@keyframes loading {
+    from {transorm: rotate(0turn)}
+    to {transform: rotate(1turn)}
+}
 
  /* Works on Chrome, Edge, and Safari */
  *::-webkit-scrollbar {

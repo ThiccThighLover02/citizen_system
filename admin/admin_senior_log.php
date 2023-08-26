@@ -74,7 +74,7 @@
     <?php
     #Select all of the data in the senior table
 
-    $row_sql = mysqli_query($conn, "SELECT * FROM senior_log");
+    $row_sql = mysqli_query($conn, "SELECT * FROM senior_log LIMIT 8");
 
     $row_count = mysqli_num_rows($row_sql);
     ?>
@@ -134,15 +134,6 @@
     ?>
 
     <div class="right-div">
-
-      <a href="excel.php" class="link">
-      <button class="right-div-buttons" onclick="excel_function()">
-          <span class="material-symbols-outlined" id="right-button">
-              download
-          </span>
-        <p class="right-p">Save excel</p>
-      </button>
-      </a>
 
       <a href="admin_view_senior.php" class="link">
       <button class="right-div-buttons" onclick="logs_function()">
