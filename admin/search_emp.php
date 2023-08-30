@@ -64,6 +64,13 @@
         ?>
       </button>
 
+      <button class="left-button" onclick="event_logs()">
+        <span class="material-symbols-outlined">
+          menu_book
+        </span>
+        <p>Event Logs</p>
+      </button>
+
       <button class="logout-button" onclick="logout_function()">
         <span class="material-symbols-outlined">
           logout

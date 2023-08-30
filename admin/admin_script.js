@@ -31,6 +31,10 @@ function add_empFunction() {
     window.location.href="create_emp.php";
 }
 
+function event_logs() {
+    window.location.href="event_log_emp.php";
+}
+
 
 //this is for the theme selection
 
