@@ -24,71 +24,19 @@
 
   <div class="main-div">
 
-    <div class="left-div">
-
-      <button class="left-button" onclick="home_function()">
-        <span class="material-symbols-outlined">
-          home
-        </span>
-        <p>Home</p>
-      </button>
-
-      <button class="left-button" onclick="view_emp()" >
-        <span class="material-symbols-outlined">
-          person
-        </span>
-        <p>Users</p>
-      </button>
-
-      <button class="left-button" onclick="view_senior()">
-        <span class="material-symbols-outlined">
-          elderly
-        </span>
-        <p>Seniors</p>
-      </button>
-
-      <button class="left-button" id="Active" onclick="view_requests()">
-        <span class="material-symbols-outlined">
-          description
-        </span>
-        <p>Requests</p>
-        <?php
-          if($row_count > 0){
-
-        ?>
-        <div id="req-notif">
-          <?= $row_count ?>
-        </div>
-        <?php
-          }
-        ?>
-      </button>
-
-      <button class="left-button" onclick="event_logs()">
-        <span class="material-symbols-outlined">
-          menu_book
-        </span>
-        <p>Event Logs</p>
-      </button>
-
-      <button class="logout-button" onclick="logout_function()">
-        <span class="material-symbols-outlined">
-          logout
-        </span>
-        <p>Logout</p>
-      </button>
-    </div>
-    
+    <!-- left div goes here -->
     <?php
+      $active = "actRequest";
+      include_once "admin_left_div.php";
 
-        #create a prepared statement to get the request details using the id
-        $stmt = $conn->prepare("SELECT * FROM request_tbl R RIGHT JOIN purok_tbl P ON R.purok_id = P.purok_id
-        RIGHT JOIN barangay_tbl B ON R.barangay_id = B.barangay_id RIGHT JOIN municipality_tbl M ON R.municipality_id = M.municipality_id
-        RIGHT JOIN  province_tbl PR ON R.province_id = PR.province_id WHERE request_id=?");
-        $stmt->bind_param("i", $request_id);
-        $stmt->execute();
-        $result = $stmt->get_result();
-        $row = mysqli_fetch_array($result);
+      #create a prepared statement to get the request details using the id
+      $stmt = $conn->prepare("SELECT * FROM request_tbl R RIGHT JOIN purok_tbl P ON R.purok_id = P.purok_id
+      RIGHT JOIN barangay_tbl B ON R.barangay_id = B.barangay_id RIGHT JOIN municipality_tbl M ON R.municipality_id = M.municipality_id
+      RIGHT JOIN  province_tbl PR ON R.province_id = PR.province_id WHERE request_id=?");
+      $stmt->bind_param("i", $request_id);
+      $stmt->execute();
+      $result = $stmt->get_result();
+      $row = mysqli_fetch_array($result);
 
     ?>
 
@@ -140,7 +88,7 @@
                   <h2>Birth Certificate</h2>
                 </div>
                 <div class="modal-body">
-                  <img src="../user/requests/birth_certificate/<?= $row['birth_certificate'] ?>" alt="" class="image-attach">
+                  
                 </div>
               </div> 
 

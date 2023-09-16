@@ -56,7 +56,7 @@
              }
 
              if(isset($_SESSION['admin_status'])){
-                $post_stmt = $conn->prepare("INSERT INTO `senior_system`.`post_tbl` (`admin_id`, `event_type_id`, `post_description`, `post_pic`, `post_date`, `post_time`, `date_created`, `time_created`, `post_loc`) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)");
+                $post_stmt = $conn->prepare("INSERT INTO `senior_system`.`activity_tbl` (`admin_id`, `event_type_id`, `post_description`, `post_pic`, `post_date`, `post_time`, `date_created`, `time_created`, `post_loc`) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)");
                 $post_stmt->bind_param("issssssss", $_SESSION['admin_id'], $event_type_id, $post_desc, $new_post_name, $post_date, $post_time, $date_created, $time_created, $post_loc);
                 $post_stmt->execute();
                 header("Location: admin_home.php");

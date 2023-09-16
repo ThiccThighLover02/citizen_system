@@ -69,11 +69,19 @@
         unlink($pngAbsoluteFilePath);
         QRcode::png($codeContents, $pngAbsoluteFilePath);
     }
-   
+    #the original path and the new path of the birth certificate
     $birth_original = "requests/birth_certificate/" . $row['birth_certificate'];
     $birth_new_path = "../senior/senior_pics/birth_certificates/" . $row['birth_certificate'];
+
+    #the original path and the new path of the id picture
     $id_original = "requests/id_pics/" . $row['id_pic'];
     $id_new_path = "../senior/senior_pics/id_pics/" . $row['id_pic'];
+
+    $bar_original = "requests/bar_certificate/" . $row['bar_certificate'];
+    $bar_new_path = "../senior/senior_pics/bar_certificates/" . $row['bar_certificate'];
+
+    $valid_original = "requests/valid_id/" / $row['valid_id'];
+    $valid_new_path = "../senior/senior_pics/valid_id/" . $row['valid_id'];
 
     #we check if the image already exists in the folder
     if (!file_exists($birth_new_path . $row['birth_certificate'])) {
@@ -92,10 +100,30 @@
         move_uploaded_file($id_original, $id_new_path);
     }
 
+    if (!file_exists($bar_new_path . $row['bar_certificate'])) {
+        rename($bar_original, $bar_new_path);
+    } 
+    else {
+        unlink($bar_new_path . $row['bar_certificate']);
+        rename($bar_original, $bar_new_path);
+    }     
+
+    if (!file_exists($valid_new_path . $row['valid_pic'])) {
+        move_uploaded_file($valid_original, $valid_new_path);
+    } 
+    else {
+        unlink($valid_new_path . $row['valid_pic']);
+        move_uploaded_file($valid_original, $valid_new_path);
+    }
+
+    
+
+    
 
 
-    $stmt = $conn->prepare("INSERT INTO `senior_system`.`senior_tbl` (`status`, `full_name`, `first_name`, `mid_name`, `last_name`, `extension`, `date_birth`, `birth_place`, `age`, `sex`, `civil_status`, `citizenship`, `cell_no`, `senior_purok_id`, `senior_barangay_id`, `senior_municipality_id`, `senior_province_id`, `senior_email`, `senior_password`, `qr_image`, `id_pic`, `birth_certificate`, `account_time`, `account_date`, `qr_contents`) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);"); 
-    $stmt->bind_param("ssssssssssssiiiiissssssss", $status, $full_name, $first_name, $middle_name, $last_name, $extension, $birth_date, $birth_place, $age, $sex, $civil_status, $citizenship, $cell_no, $purok, $barangay, $municipality, $province, $email, $password, $fileName, $row['id_pic'], $row['birth_certificate'], $time_created, $date_created, $codeContents);
+
+    $stmt = $conn->prepare("INSERT INTO `senior_system`.`senior_tbl` (`status`, `full_name`, `first_name`, `mid_name`, `last_name`, `extension`, `date_birth`, `birth_place`, `age`, `sex`, `civil_status`, `citizenship`, `cell_no`, `senior_purok_id`, `senior_barangay_id`, `senior_municipality_id`, `senior_province_id`, `senior_email`, `senior_password`, `qr_image`, `id_pic`, `birth_certificate`, `bar_certificate`, `valid_id`, `account_time`, `account_date`, `qr_contents`) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);"); 
+    $stmt->bind_param("ssssssssssssiiiiissssssssss", $status, $full_name, $first_name, $middle_name, $last_name, $extension, $birth_date, $birth_place, $age, $sex, $civil_status, $citizenship, $cell_no, $purok, $barangay, $municipality, $province, $email, $password, $fileName, $row['id_pic'], $row['birth_certificate'], $row['bar_certificate'], $row['valid_id'], $time_created, $date_created, $codeContents);
     $stmt->execute();
 
     $remove = $conn->prepare("DELETE FROM request_tbl WHERE request_id=?");
@@ -255,10 +283,70 @@ if($birth_error === 0){
  }
 }
 
+#this is for the barangay certificate
+$bar_cert = $_FILES['bar_certificate']['name'];
+$bar_size = $_FILES['bar_certificate']['size'];
+$bar_temp_name = $_FILES['bar_certificate']['tmp_name'];
+$bar_error = $_FILES['bar_certificate']['error'];
+if($bar_error === 0){
+ if ($bar_size > 16777215){
+  header("Location: create_acc.php?img_size=false"); #this will execute if the image size is too large
+ }
+
+ else {
+     $img_ex = pathinfo($bar_cert, PATHINFO_EXTENSION);
+     $img_ex_lc = strtolower($img_ex);
+
+     $allowed_exs = array("jpg", "jpeg", "png");
+
+     if(in_array($img_ex_lc, $allowed_exs)) {
+       date_default_timezone_set("Asia/Manila");
+       $new_bar_name =$firstN . "_" . $midN . "_" . $lastN . "bar_cert" . "." . $img_ex_lc;
+       $img_upload_path = '../user/requests/bar_certificate/' . $new_birth_name;
+       move_uploaded_file($bar_temp_name, $img_upload_path);
+         
+         
+     }
+     else{
+         header("Location: create_acc.php?img_ex=false"); #this will execute if the file is not a jpeg or png
+     }
+ }
+}
+
+#this is for the valid id
+$valid_id = $_FILES['valid_id']['name'];
+$valid_size = $_FILES['valid_id']['size'];
+$valid_temp_name = $_FILES['valid_id']['tmp_name'];
+$valid_error = $_FILES['valid_id']['error'];
+if($valid_error === 0){
+if ($valid_size > 16777215){
+header("Location: create_acc.php?img_size=false"); #this will execute if the image size is too large
+}
+
+else {
+   $img_ex = pathinfo($valid_id, PATHINFO_EXTENSION);
+   $img_ex_lc = strtolower($img_ex);
+
+   $allowed_exs = array("jpg", "jpeg", "png");
+
+   if(in_array($img_ex_lc, $allowed_exs)) {
+     date_default_timezone_set("Asia/Manila");
+     $new_valid_name =$firstN . "_" . $midN . "_" . $lastN . "valid_id" . "." . $img_ex_lc;
+     $img_upload_path = '../user/requests/birth_certificate/' . $new_birth_name;
+     move_uploaded_file($valid_temp_name, $img_upload_path);
+       
+       
+   }
+   else{
+       header("Location: create_acc.php?img_ex=false"); #this will execute if the file is not a jpeg or png
+   }
+}
+}
 
 
-$stmt = $conn->prepare("INSERT INTO `senior_system`.`senior_tbl` (`status`, `full_name`, `first_name`, `mid_name`, `last_name`, `extension`, `date_birth`, `birth_place`, `age`, `sex`, `civil_status`, `citizenship`, `cell_no`, `senior_purok_id`, `senior_barangay_id`, `senior_municipality_id`, `senior_province_id`, `senior_email`, `senior_password`, `qr_image`, `id_pic`, `birth_certificate`, `account_time`, `account_date`, `qr_contents`) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);"); 
-$stmt->bind_param("ssssssssssssiiiiissssssss", $status, $full_name, $first_name, $middle_name, $last_name, $extension, $birth_date, $birth_place, $age, $sex, $civil_stat, $citizenship, $cell_no, $purok, $barangay, $municipality, $province, $email, $password, $fileName, $new_id_name, $new_birth_name, $account_time, $account_date, $codeContents);
+
+$stmt = $conn->prepare("INSERT INTO `senior_system`.`senior_tbl` (`status`, `full_name`, `first_name`, `mid_name`, `last_name`, `extension`, `date_birth`, `birth_place`, `age`, `sex`, `civil_status`, `citizenship`, `cell_no`, `senior_purok_id`, `senior_barangay_id`, `senior_municipality_id`, `senior_province_id`, `senior_email`, `senior_password`, `qr_image`, `id_pic`, `birth_certificate`, `bar_certificate`, `valid_id`, `account_time`, `account_date`, `qr_contents`) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);"); 
+$stmt->bind_param("ssssssssssssiiiiissssssssss", $status, $full_name, $first_name, $middle_name, $last_name, $extension, $birth_date, $birth_place, $age, $sex, $civil_stat, $citizenship, $cell_no, $purok, $barangay, $municipality, $province, $email, $password, $fileName, $new_id_name, $new_birth_name, $new_bar_name, $new_valid_name, $account_time, $account_date, $codeContents);
 $stmt->execute();
 
 header("Location: admin_view_senior.php?add_senior='true'");

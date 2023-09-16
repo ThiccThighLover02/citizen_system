@@ -25,67 +25,16 @@
 
   <div class="main-div">
 
-    <div class="left-div">
-
-      <button class="left-button" onclick="home_function()">
-        <span class="material-symbols-outlined">
-          home
-        </span>
-        <p>Home</p>
-      </button>
-
-      <button class="left-button" onclick="view_emp()" >
-        <span class="material-symbols-outlined">
-          person
-        </span>
-        <p>Users</p>
-      </button>
-
-      <button class="left-button" onclick="view_senior()">
-        <span class="material-symbols-outlined">
-          elderly
-        </span>
-        <p>Seniors</p>
-      </button>
-
-      <button class="left-button" onclick="view_requests()">
-        <span class="material-symbols-outlined">
-          description
-        </span>
-        <p>Requests</p>
-        <?php
-          if($row_count > 0){
-
-        ?>
-        <div id="req-notif">
-          <?= $row_count ?>
-        </div>
-        <?php
-          }
-        ?>
-      </button>
-
-      <button class="left-button" onclick="event_logs()" id="Active">
-        <span class="material-symbols-outlined">
-          menu_book
-        </span>
-        <p>Event Logs</p>
-      </button>
-
-      <button class="logout-button" onclick="logout_function()">
-        <span class="material-symbols-outlined">
-          logout
-        </span>
-        <p>Logout</p>
-      </button>
-    </div>
-
+    <!-- left div goes here -->
     <?php
-    #Select all of the data in the senior table
-    $sql = mysqli_query($conn, "SELECT * FROM activity_tbl A INNER JOIN emp_tbl E ON A.act_emp_id = E.emp_id INNER JOIN action_tbl AC ON A.action_id = AC.action_id WHERE act_emp_id IS NOT NULL");
+      $active = "actEvent";
+      include_once "admin_left_div.php";
 
-    #we will get the number of rows in the table
-    $row_count = mysqli_num_rows($sql);
+      #Select all of the data in the senior table
+      $sql = mysqli_query($conn, "SELECT * FROM event_log A INNER JOIN emp_tbl E ON A.act_emp_id = E.emp_id INNER JOIN action_tbl AC ON A.event_id = AC.action_id WHERE act_emp_id IS NOT NULL");
+
+      #we will get the number of rows in the table
+      $row_count = mysqli_num_rows($sql);
     
     ?>
 

@@ -32,64 +32,14 @@
 
   <div class="main-div">
 
-    <div class="left-div">
-
-      <button class="left-button" id="Active" onclick="home_function()">
-        <span class="material-symbols-outlined">
-          home
-        </span>
-        <p>Home</p>
-      </button>
-
-      <button class="left-button" onclick="view_emp()" >
-        <span class="material-symbols-outlined">
-          person
-        </span>
-        <p>Users</p>
-      </button>
-
-      <button class="left-button" onclick="view_senior()">
-        <span class="material-symbols-outlined">
-          elderly
-        </span>
-        <p>Seniors</p>
-      </button>
-
-      <button class="left-button" onclick="view_requests()">
-        <span class="material-symbols-outlined">
-          description
-        </span>
-        <p>Requests</p>
-        <?php
-          if($row_count > 0){
-
-        ?>
-        <div id="req-notif">
-          <?= $row_count ?>
-        </div>
-        <?php
-          }
-        ?>
-      </button>
-
-      <button class="left-button" onclick="event_logs()">
-        <span class="material-symbols-outlined">
-          menu_book
-        </span>
-        <p>Event Logs</p>
-      </button>
-
-      <button class="logout-button" onclick="logout_function()">
-        <span class="material-symbols-outlined">
-          logout
-        </span>
-        <p>Logout</p>
-      </button>
-    </div>
+    <?php
+    $active = "actHome";
+    include_once 'admin_left_div.php';
+    ?>
 
     <?php
       #select everything from the post table
-      $sql_post = mysqli_query($conn, "SELECT * FROM post_tbl P LEFT JOIN emp_tbl E ON P.emp_id = E.emp_id LEFT JOIN admin_tbl A ON P.admin_id = A.admin_id INNER JOIN type_tbl T ON P.event_type_id = T.type_id ORDER BY date_created ASC, time_created DESC");
+      $sql_post = mysqli_query($conn, "SELECT * FROM activity_tbl P LEFT JOIN emp_tbl E ON P.emp_id = E.emp_id LEFT JOIN admin_tbl A ON P.admin_id = A.admin_id INNER JOIN type_tbl T ON P.event_type_id = T.type_id ORDER BY date_created ASC, time_created DESC");
       $post_row = mysqli_num_rows($sql_post);
     ?>
     
@@ -161,7 +111,7 @@
           while($row = mysqli_fetch_array($sql_post)){
             $post_id = $row['post_id'];
             #if the post is before the due date of the event this will run
-            if(new DateTime() < new DateTime($row['post_date'] . $row['post_time'])){
+            if(new DateTime("now") < new DateTime($row['post_date'] . $row['post_time'])){
       ?>
       <div class="post">
         <div class="title">
@@ -235,32 +185,14 @@
       </div>
       <?php
         }
-        elseif(new DateTime() > new DateTime($row['post_date'] . $row['post_time'])){
-
-          if(!is_null($row['post_pic'])){
-            $original_post = "../user/posts/post_pics/" . $row['post_pic'];
-            $deleted_post = "deleted/deleted_post_pics/" . $row['post_pic'];
-            rename($original_post, $deleted_post);
-          }
-          
-          $remove_sql = $conn->prepare("DELETE FROM post_tbl WHERE post_id=?");
-          $remove_sql->bind_param("i", $post_id);
-          $remove_sql->execute();
-        }
       }
     }
-        #if there are no rows this will be displayed
-        elseif($post_row == 0) {
 
       ?>
 
       <div class="no-posts">
         <h1>There are no new posts</h1>
       </div>
-
-      <?php
-        }
-      ?>
 
     </div>
 
@@ -316,6 +248,7 @@
 
 window.addEventListener('load', ()=>{
     document.querySelector(".loader").classList.add("loader--hidden");
+
 });
 
         // Get the modal

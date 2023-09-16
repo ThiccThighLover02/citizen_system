@@ -35,6 +35,10 @@ function event_logs() {
     window.location.href="event_log_emp.php";
 }
 
+function activity_function(){
+    window.location.href="admin_activities.php";
+}
+
 
 //this is for the theme selection
 

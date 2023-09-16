@@ -128,6 +128,18 @@
           <input type="file" class="input-fields-picture" name="birth_certificate" id="birth-certificate" required>
           <p id="birth-type-error" style="display:none;">This is not a jpeg file</p>
         </div>
+
+        <div>
+          <label for="" class="label-email">Barangay Certification</label>
+          <input type="file" class="input-fields-picture" name="bar_certificate" id="birth-certificate" required>
+          <p id="birth-type-error" style="display:none;">This is not a jpeg file</p>
+        </div>
+
+        <div>
+          <label for="" class="label-email">Any Valid ID</label>
+          <input type="file" class="input-fields-picture" name="valid_id" id="birth-certificate" required>
+          <p id="birth-type-error" style="display:none;">This is not a jpeg file</p>
+        </div>
         
 
         <input type="submit" value="Send Request" class="submit-button" id="submit_button">

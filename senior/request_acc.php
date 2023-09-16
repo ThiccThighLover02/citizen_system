@@ -92,6 +92,66 @@
         }
     }
   }
+
+  #this is for the barangay certificate
+  $bar_cert = $_FILES['bar_certificate']['name'];
+  $bar_size = $_FILES['bar_certificate']['size'];
+  $bar_temp_name = $_FILES['bar_certificate']['tmp_name'];
+  $bar_error = $_FILES['bar_certificate']['error'];
+  if($bar_error === 0){
+   if ($bar_size > 16777215){
+    header("Location: create_acc.php?img_size=false"); #this will execute if the image size is too large
+   }
+
+   else {
+       $img_ex = pathinfo($bar_cert, PATHINFO_EXTENSION);
+       $img_ex_lc = strtolower($img_ex);
+
+       $allowed_exs = array("jpg", "jpeg", "png");
+
+       if(in_array($img_ex_lc, $allowed_exs)) {
+         date_default_timezone_set("Asia/Manila");
+         $new_bar_name =$firstN . "_" . $midN . "_" . $lastN . "bar_cert" . "." . $img_ex_lc;
+         $img_upload_path = '../user/requests/bar_certificate/' . $new_birth_name;
+         move_uploaded_file($bar_temp_name, $img_upload_path);
+           
+           
+       }
+       else{
+           header("Location: create_acc.php?img_ex=false"); #this will execute if the file is not a jpeg or png
+       }
+   }
+}
+
+#this is for the valid id
+$valid_id = $_FILES['valid_id']['name'];
+$valid_size = $_FILES['valid_id']['size'];
+$valid_temp_name = $_FILES['valid_id']['tmp_name'];
+$valid_error = $_FILES['valid_id']['error'];
+if($valid_error === 0){
+ if ($valid_size > 16777215){
+  header("Location: create_acc.php?img_size=false"); #this will execute if the image size is too large
+ }
+
+ else {
+     $img_ex = pathinfo($valid_id, PATHINFO_EXTENSION);
+     $img_ex_lc = strtolower($img_ex);
+
+     $allowed_exs = array("jpg", "jpeg", "png");
+
+     if(in_array($img_ex_lc, $allowed_exs)) {
+       date_default_timezone_set("Asia/Manila");
+       $new_valid_name =$firstN . "_" . $midN . "_" . $lastN . "valid_id" . "." . $img_ex_lc;
+       $img_upload_path = '../user/requests/birth_certificate/' . $new_birth_name;
+       move_uploaded_file($valid_temp_name, $img_upload_path);
+         
+         
+     }
+     else{
+         header("Location: create_acc.php?img_ex=false"); #this will execute if the file is not a jpeg or png
+     }
+ }
+}
    
 
   if ($age < 60) {
@@ -115,9 +175,9 @@
 
     else {
     
-      $stmt_request = $conn->prepare("INSERT INTO  request_tbl(`first_name`, `middle_name`, `last_name`, `extension`, `birth_date`, `place_birth`, `sex`, `civil_status`, `citizenship`, `purok_id`, `barangay_id`, `municipality_id`, `province_id`, `birth_certificate`, `id_pic`, `cell_no`, `senior_email`, `age`, `request_date`, `request_time`) 
-      VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
-      $stmt_request->bind_param("sssssssssssssssisiss", $firstN, $midN, $lastN, $extension, $birth_date, $birth_place, $sex, $civil_stat, $citizen, $purok, $barangay, $municipality, $province, $new_birth_name, $new_id_name, $cellno, $email, $age, $request_date, $request_time);
+      $stmt_request = $conn->prepare("INSERT INTO  request_tbl(`first_name`, `middle_name`, `last_name`, `extension`, `birth_date`, `place_birth`, `sex`, `civil_status`, `citizenship`, `purok_id`, `barangay_id`, `municipality_id`, `province_id`, `birth_certificate`, `id_pic`, `bar_certificate`, `valid_id`, `cell_no`, `senior_email`, `age`, `request_date`, `request_time`) 
+      VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+      $stmt_request->bind_param("sssssssssiiiissssissss", $firstN, $midN, $lastN, $extension, $birth_date, $birth_place, $sex, $civil_stat, $citizen, $purok, $barangay, $municipality, $province, $new_birth_name, $new_id_name, $new_bar_name, $new_valid_name, $cellno, $email, $age, $request_date, $request_time);
       $stmt_request->execute();
 
       $em = "sent";

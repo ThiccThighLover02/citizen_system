@@ -296,10 +296,10 @@ option {
     background-color: #ececec;
     border-radius: 8px;
     min-height: 10vh;
-    max-width: 60vw;
     max-height: 80vh;
-    margin: 3% auto;
+    margin: 0 auto;
     padding: 1% 2%;
+    width: 100vw;
   
   }
   
@@ -378,7 +378,7 @@ option {
     background-color: #ececec;
     border-radius: 8px;
     min-height: 10vh;
-    max-width: 70vh;
+    max-width: 60vw;
     max-height: 80vh;
     margin: 3% auto;
     padding: 1% 2%;
