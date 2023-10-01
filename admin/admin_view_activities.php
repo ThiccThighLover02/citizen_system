@@ -1,6 +1,8 @@
 <?php
   include "../db_connect.php";
   include "../req_count.php";
+  #get the request id from the url
+  $activity_id = $_GET['event'];
 
 ?>
 
@@ -11,7 +13,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Senior Home Page</title>
     <script src="admin_script.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js">
+    <!-- this is for the bar chart -->
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js">
     </script>
     <link rel="stylesheet" href ="../layout.css?v=<?php echo time(); ?>">
     
@@ -25,90 +29,128 @@
 
     <!-- left div goes here -->
     <?php
-      $active = "actActivity";
+      $active = "actSenior";
       include_once "admin_left_div.php";
     ?>
     
     <?php
 
         #create a prepared statement to get the request details using the id
-        $stmt = $conn->prepare("SELECT * FROM request_tbl R RIGHT JOIN purok_tbl P ON R.purok_id = P.purok_id
-        RIGHT JOIN barangay_tbl B ON R.barangay_id = B.barangay_id RIGHT JOIN municipality_tbl M ON R.municipality_id = M.municipality_id
-        RIGHT JOIN  province_tbl PR ON R.province_id = PR.province_id WHERE request_id=?");
-        $stmt->bind_param("i", $request_id);
+        $stmt = $conn->prepare("SELECT * FROM activity_tbl A INNER JOIN type_tbl T ON A.event_type_id = T.type_id WHERE post_id=?");
+        $stmt->bind_param("i", $activity_id);
         $stmt->execute();
         $result = $stmt->get_result();
         $row = mysqli_fetch_array($result);
 
+        $timeFormat = new DateTime($row['post_time']);
+        $new_time_format = $timeFormat->format("M-d-Y");
+
     ?>
 
-    <div class="mid-div-requests">
+    <div class="mid-div-requests" id="parent-div">
+    <img src="../user/posts/post_pics/<?= $row['post_pic'] ?>" alt="Avatar" class="request-img">
+
+        <div class="request-details">
+            <div>
+            <h3 class="detail-head">Event Type: </h3>
+            <p class="request-info"><?= $row['type_name'] ?></p>
+            </div>
+
+            <div>
+            <h3 class="detail-head">Event Address: </h3>
+            <p class="request-info"><?= $row['post_loc'] ?></p>
+            </div>
+
+            <div>
+            <h3 class="detail-head">Event Date and Time: </h3>
+            <p class="request-info"><?= $new_time_format ?></p>
+            </div>
+            
+        </div>
+
+        <div class="calendar">
+          <!-- bar chart starts here -->
+      <canvas id="myChart" style="width:100%;max-width:700px"></canvas>
+      <script>
+        <?php
+          /*select all of the seniors from all of the barangays
+          $sql_alua = mysqli_query($conn, "SELECT senior_attend FROM attend_tbl WHERE senior_barangay='1'");
+          $sql_calaba = mysqli_query($conn, "SELECT senior_attend FROM attend_tbl WHERE senior_barangay='2'");
+          $sql_malapit = mysqli_query($conn, "SELECT senior_attend FROM attend_tbl WHERE senior_barangay='3'");
+          $sql_mangga = mysqli_query($conn, "SELECT senior_attend FROM attend_tbl WHERE senior_barangay='4'");
+          $sql_poblacion = mysqli_query($conn, "SELECT senior_attend FROM attend_tbl WHERE senior_barangay='5'");
+          $sql_pulo = mysqli_query($conn, "SELECT senior_attend FROM attend_tbl WHERE senior_barangay='6'");
+          $sql_roque = mysqli_query($conn, "SELECT senior_attend FROM attend_tbl WHERE senior_barangay='7'");
+          $sql_cristo = mysqli_query($conn, "SELECT senior_attend FROM attend_tbl WHERE senior_barangay='8'");
+          $sql_tabon = mysqli_query($conn, "SELECT senior_attend FROM attend_tbl WHERE senior_barangay='9'");
+
+          $alua_rows = mysqli_num_rows($sql_alua);
+          $calaba_rows = mysqli_num_rows($sql_calaba);
+          $malapit_rows = mysqli_num_rows($sql_malapit);
+          $mangga_rows = mysqli_num_rows($sql_mangga);
+          $poblacion_rows = mysqli_num_rows($sql_poblacion);
+          $pulo_rows = mysqli_num_rows($sql_pulo);
+          $roque_rows = mysqli_num_rows($sql_roque);
+          $cristo_rows = mysqli_num_rows($sql_cristo);
+          $tabon_rows = mysqli_num_rows($sql_tabon);
+          */
+          
+        ?>
+        //These are the barangays in the municipality of San Isidro
+        var xValues = ["Alua", "Calaba", "Malapit", "Mangga", "Poblacion", "Pulo", "San Roque", "Santo Cristo", "Tabon"];
+        var yValues = [<?= $alua_rows ?>, 1, <?= $malapit_rows ?>, <?= $mangga_rows ?>, <?= $poblacion_rows ?>, <?= $pulo_rows ?>, <?= $roque_rows ?>, <?= $cristo_rows ?>, <?= $tabon_rows ?>];
+        var barColors = "red";
+
+        console.log(<?= $alua_rows ?>)
+        
+        new Chart("myChart", {
+          type: "bar",
+          data: {
+            labels: xValues,
+            datasets: [{
+              backgroundColor: barColors,
+              data: yValues
+            }]
+          },
+          options: {
+            legend: {display: false},
+            title: {
+              display: true,
+              text: "Attendance from different barangays"
+            }
+          }
+        });
+
+      </script>
+        </div>
       
-    <!-- Slideshow container -->
-    <div class="slideshow-container">
-
-<!-- Full-width images with number and caption text -->
-
-<div class="mySlides fade">
-  <div class="numbertext">1 / 3</div>
-  <img src="../user/requests/id_pics/Carlson_San Nicolas_Magtalasid_pic.jpg" style="width:100%">
-  <div class="text">Birth Certificate</div>
-</div>
-
-<div class="mySlides fade">
-  <div class="numbertext">2 / 3</div>
-  <img src="../user/requests/id_pics/Carlson_San Nicolas_Magtalasid_pic.jpg" style="width:100%">
-  <div class="text">Barangay Certificate</div>
-</div>
-
-<div class="mySlides fade">
-  <div class="numbertext">3 / 3</div>
-  <img src="../user/requests/id_pics/Carlson_San Nicolas_Magtalasid_pic.jpg" style="width:100%">
-  <div class="text">Valid ID</div>
-</div>
-
-<!-- Next and previous buttons -->
-<a class="prev" onclick="plusSlides(-1)">&#10094;</a>
-<a class="next" onclick="plusSlides(1)">&#10095;</a>
-</div>
-<br>
-
-<!-- The dots/circles -->
-<div style="text-align:center">
-<span class="dot" onclick="currentSlide(1)"></span>
-<span class="dot" onclick="currentSlide(2)"></span>
-<span class="dot" onclick="currentSlide(3)"></span>
-</div>
 
     </div>
 
-    <div class="right-div-chart">
-    <canvas id="myChart" style="width:100%;max-width:600px"></canvas>
+    <div class="right-div">
+       
+      <a href="admin_senior_attend.php?act_id=<?= $activity_id ?>" class="link">
+        <button class="right-div-buttons">
+          <div class="right-div-button-div">
+            <span class="material-symbols-outlined" id="right-button">
+                how_to_reg
+            </span>
+          </div>
+          <p class="right-p">Senior Attend</p>
+        </button>
+      </a>
+      
 
-<script>
-const xValues = ["Pulo", "Tabon", "Alua", "Malapit", "Sto Cristo"];
-const yValues = [100, 80, 60, 40, 20, 0];
-const attendants = [1000, 25, 43, 23, 500];
-const barColors = "red";
-
-new Chart("myChart", {
-  type: "bar",
-  data: {
-    labels: xValues,
-    datasets: [{
-      backgroundColor: barColors,
-      data: attendants
-    }]
-  },
-  options: {
-    legend: {display: false},
-    title: {
-      display: true,
-      text: "World Wine Production 2018"
-    }
-  }
-});
-</script>
+      <a href="admin_activities.php" class="link">
+        <button class="right-div-buttons">
+          <div class="right-div-button-div">
+            <span class="material-symbols-outlined" id="right-button">
+                arrow_back
+            </span>
+          </div>
+          <p class="right-p">Return to Activities</p>
+        </button>
+      </a>
     </div>
 
   </div>
@@ -117,35 +159,32 @@ new Chart("myChart", {
   </body>
 
   <script>
-    // Get the modal
-var modal = document.getElementById("myModal");
+    <?php
+      if(isset($_GET['scan']) && $_GET['scan'] == 'fail'){
+    ?>
 
-// Get the button that opens the modal
-var btn = document.getElementById("myBtn");
+    alert("Senior may not exist, or qr code is invalid");
 
-// Get the <span> element that closes the modal
-var span = document.getElementsByClassName("close")[0];
+    <?php
+      }
+      elseif(isset($_GET['scan']) && $_GET['scan'] == 'success'){
+    ?>
+    
+      alert("Senior has successfully been scanned and recorded for this event");
 
-// When the user clicks on the button, open the modal
-btn.onclick = function() {
-  modal.style.display = "block";
+    <?php
+      }
+    ?>
+
+    function printExternal(url) {
+    var printWindow = window.open( url, 'Print', 'left=200, top=200, width=1600, height=900, toolbar=800, resizable=0');
+    printWindow.addEventListener('load', function(){
+        printWindow.print();
+        printWindow.close();
+    }, true);
 }
 
-// When the user clicks on <span> (x), close the modal
-span.onclick = function() {
-  modal.style.display = "none";
-}
 
-// When the user clicks anywhere outside of the modal, close it
-window.onclick = function(event) {
-  if (event.target == modal) {
-    modal.style.display = "none";
-  }
-} 
-
-function add_function(){
-  window.location.href="../add_senior.php?request_id=<?= $row['request_id'] ?>"
-}
   </script>
 
 </html>

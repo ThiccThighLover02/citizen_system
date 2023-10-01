@@ -31,16 +31,31 @@
       include_once "admin_left_div.php";
         
       #Select all of the data in the senior table
-      $sql = mysqli_query($conn, "SELECT * FROM event_log A INNER JOIN senior_tbl S ON A.act_senior_id = S.senior_id INNER JOIN action_tbl AC ON A.event_id = AC.action_id WHERE act_senior_id IS NOT NULL");
+      if(isset($_GET['filter']) && $_GET['filter'] == 'Action'){
+        $sql = mysqli_query($conn, "SELECT * FROM event_log A INNER JOIN senior_tbl E ON A.act_senior_id = E.senior_id INNER JOIN action_tbl AC ON A.action_id = AC.action_id WHERE act_senior_id IS NOT NULL ORDER BY action_done");
+      }
+
+      elseif(isset($_GET['filter']) && $_GET['filter'] == 'Name'){
+        $sql = mysqli_query($conn, "SELECT * FROM event_log A INNER JOIN senior_tbl E ON A.act_senior_id = E.senior_id INNER JOIN action_tbl AC ON A.event_id = AC.action_id WHERE act_senior_id IS NOT NULL ORDER BY full_name");
+      }
+
+      elseif(isset($_GET['filter']) && $_GET['filter'] == 'DateAsc'){
+        $sql = mysqli_query($conn, "SELECT * FROM event_log A INNER JOIN senior_tbl E ON A.act_senior_id = E.senior_id INNER JOIN action_tbl AC ON A.event_id = AC.action_id WHERE act_senior_id IS NOT NULL ORDER BY act_date ASC");
+      }
+
+      elseif(isset($_GET['filter']) && $_GET['filter'] == 'DateDes'){
+        $sql = mysqli_query($conn, "SELECT * FROM event_log A INNER JOIN senior_tbl E ON A.act_senior_id = E.senior_id INNER JOIN action_tbl AC ON A.event_id = AC.action_id WHERE act_senior_id IS NOT NULL ORDER BY act_date DESC");
+      }
+
+      else {
+        header("Location: event_log_senior.php?filter=Action");
+      }
   
       #we will get the number of rows in the table
       $row_count = mysqli_num_rows($sql);
     
     ?>
 
-    <script>
-        console.log("<?= $row[''] ?>");
-    </script>
 
     <div class="mid-div" id="orig-sen-tbl">
     <div class="log-header">
@@ -71,13 +86,14 @@
           <?php
 
             while($row = mysqli_fetch_array($sql)){
+              $new_time = date("H:i:s A", strtotime($row['act_time']));
           
           ?>
           <tr class="body-row" id="body-row">
             <td><?= $row['first_name'] . " " . $row['last_name']?></td>
             <td><?= $row['action_done'] ?></td>
             <td><?= $row['act_date'] ?></td>
-            <td><?= $row['act_time'] ?></td>
+            <td><?= $new_time ?></td>
           </tr>
           <?php
             }
@@ -99,15 +115,23 @@
 
     <div class="right-div-log">
 
-        <select name="sort by" id="">
-            <option value="" hidden>Sort by</option>
-            <option value="action">Action</option>
-            <option value="name">Name</option>
-            <option value="date-asc">Date(asc)</option>
-            <option value="date-desc">Date (desc)</option>
+    <div class="right-div-log">
 
-        </select>
-        <button>Apply Filter</button>
+    <form action="" method="get">
+      <select name="filter" id="">
+          <option value="" hidden>Sort by</option>
+          <option value="Action">Action</option>
+          <option value="Name">Name</option>
+          <option value="DateAsc">Date(asc)</option>
+          <option value="DateDes">Date (desc)</option>
+
+      </select>
+      <input type="submit" value="Apply Filter">
+    </form>
+
+
+</div>
+
 
     </div>
 

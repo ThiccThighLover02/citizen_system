@@ -1,6 +1,7 @@
 <?php
   include "../db_connect.php";
   include "../req_count.php";
+  date_default_timezone_set('Asia/Manila');
 
 
 ?>
@@ -13,6 +14,7 @@
     <title>View Seniors</title>
     <script src="admin_script.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
     <link rel="stylesheet" href ="../layout.css?v=<?php echo time(); ?>">
     
   </head>
@@ -30,55 +32,14 @@
     include_once "admin_left_div.php";
     ?>
 
-    <div class="mid-div-activities" id="orig-sen-tbl">
+    <!-- this is the mid div -->
+
+    <div class="mid-div-only" id="orig-sen-tbl">
     <?php
-        $sql = mysqli_query($conn, "SELECT * FROM activity_tbl A INNER JOIN type_tbl T ON A.event_type_id = T.type_id");
-        $num_rows = mysqli_num_rows($sql);
-        
-        if($num_rows > 0){
-            while($row = mysqli_fetch_array($sql)){
-                $date_format = new DateTime($row['post_date']);
-                $currentDateTime = new DateTime('now');
-                $currentDate = $currentDateTime->format("Y-m-d");
-                $currentTime = $currentDateTime->format("H:i:s");
-                if($currentDate . $currentTime < new DateTime($row['post_date'] . $row['post_time'])){
+      include "calendar.php";
     ?>
-
-    <div class="mid-cards">
-        <img src="../user/posts/post_pics/<?= $row['post_pic'] ?>" alt="Avatar" class="card-img">
-        <div class="card-container">
-            <h4><b><?= $row['type_name'] ?></b></h4>
-            <?php
-            if($currentDate == new DateTime($row['post_date'])){
-            ?>
-            <p>Ongoing</p>
-            <?php
-            }
-            else{
-            ?>
-            <p>Event on <?= $row['post_date'] ?></p>
-
-            <a href="admin_view_activity.php?event=<?= $row['post_id'] ?>"><button>View Activity</button></a>
-        </div>
-    </div>
-
-    <?php
-            }
-            }
-        }
-    }
-    ?>
-
-    
-
     </div>
      
-
-    <div class="right-div">
-
-    <div class="right-search">
-
-    </div>
 
   </div>
   
@@ -86,6 +47,9 @@
   </body>
 
   <script>
+
+    
+
   $(document).ready(function(){
 
     $("#search").keyup(function(){

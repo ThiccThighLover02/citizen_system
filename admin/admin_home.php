@@ -39,7 +39,7 @@
 
     <?php
       #select everything from the post table
-      $sql_post = mysqli_query($conn, "SELECT * FROM activity_tbl P LEFT JOIN emp_tbl E ON P.emp_id = E.emp_id LEFT JOIN admin_tbl A ON P.admin_id = A.admin_id INNER JOIN type_tbl T ON P.event_type_id = T.type_id ORDER BY date_created ASC, time_created DESC");
+      $sql_post = mysqli_query($conn, "SELECT * FROM activity_tbl P LEFT JOIN emp_tbl E ON P.emp_id = E.emp_id LEFT JOIN admin_tbl A ON P.admin_id = A.admin_id INNER JOIN type_tbl T ON P.event_type_id = T.type_id WHERE post_date > CURDATE() ORDER BY date_created ASC, time_created DESC");
       $post_row = mysqli_num_rows($sql_post);
     ?>
     
@@ -187,12 +187,17 @@
         }
       }
     }
+    elseif($post_row == 0){
 
       ?>
 
       <div class="no-posts">
         <h1>There are no new posts</h1>
       </div>
+
+    <?php
+    }
+    ?>
 
     </div>
 
